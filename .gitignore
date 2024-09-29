@@ -1,0 +1,8 @@
+## Node.js and Next.js
+.next/
+node_modules/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml

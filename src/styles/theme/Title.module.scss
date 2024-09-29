@@ -1,0 +1,41 @@
+@import "src/styles/framework/colors";
+@import "./theme";
+
+h1.title {
+  font-weight: bold;
+  line-height: 1.5;
+  color: $black;
+  margin-bottom: 2rem;
+}
+
+h2.title {
+
+
+  text-transform: uppercase;
+  font-family: $roboto;
+  font-size: $veryLarge;
+  color: $black;
+  // TODO: very problematic
+  margin-top: 0 !important;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: $purple;
+    margin: 20px 0 50px 0;
+  }
+
+  &.noLine:after {
+    width: 0;
+    height: 0;
+  }
+
+  @media (max-width: 900px) {
+    margin-top: 30px !important;
+    &::after {
+      margin: 10px 0 20px 0;
+    }
+  }
+}

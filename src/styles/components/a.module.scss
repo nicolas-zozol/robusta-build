@@ -1,0 +1,25 @@
+@import '../framework/colors.scss';
+
+
+a.pagination, span.pagination{
+
+  color: $dark-blue;
+  font-weight: bolder;
+  margin: 10px;
+  padding: 10px;
+
+  &:hover:not(.disabled){
+    color: $gold;
+  }
+
+  &.disabled{
+    color: $light-grey;
+    font-weight: normal;
+
+  }
+
+  &.current{
+    border: thin solid $purple;
+  }
+ }
+

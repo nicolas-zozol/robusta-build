@@ -1,0 +1,24 @@
+@import '../framework/colors.scss';
+
+nav.horizontalNav {
+  border-bottom: 2px solid $purple;
+  padding-left: 0;
+  padding-right: 0;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none;
+    @media (max-width: 900px) {
+      flex-direction: column;
+      padding: 0;
+      text-align: center;
+    }
+  }
+
+  li {
+    padding: 10px 30px;
+  }
+
+}

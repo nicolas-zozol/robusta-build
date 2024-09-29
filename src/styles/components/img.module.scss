@@ -1,0 +1,10 @@
+img.thumbnail{
+  object-fit: contain;
+  max-width: 200px;
+}
+
+img.floatThumbnail{
+  object-fit: contain;
+  max-width: 100px;
+  float: right;
+}

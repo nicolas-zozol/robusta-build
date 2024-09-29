@@ -1,0 +1,9 @@
+[build]
+
+    base = "/"
+    publish = "out"
+    command = "yarn deploy"
+
+[build.environment]
+
+    NODE_VERSION = "v20.11.1"

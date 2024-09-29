@@ -1,0 +1,199 @@
+@import "./colors";
+
+.bg-white {
+  background-color: $white;
+}
+
+.bg-grey {
+  background-color: $background-grey;
+}
+
+.bg-blue {
+  background-color: $new-blue;
+}
+
+.min-400 {
+  min-width: 400px;
+}
+
+
+.r-10 {
+  border-radius: 10px;
+}
+
+.flex-layout {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrap-50 {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    min-width: 49%;
+  }
+}
+
+.wrap-33 {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    min-width: 33%;
+  }
+}
+
+.flex-layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.w-250 {
+  width: 250px;
+}
+
+.w-300 {
+  width: 300px;
+}
+
+.w-350 {
+  width: 350px;
+}
+
+.w-400 {
+  width: 400px;
+}
+
+.w-500 {
+  width: 500px;
+}
+
+.w-750 {
+  width: 750px;
+}
+
+.w-800 {
+  width: 800px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.m-40 {
+  margin: 40px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+.mt-80 {
+  margin-top: 80px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-80 {
+  margin-bottom: 80px;
+}
+
+.mtb-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.ml-40 {
+  margin-left: 40px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.pr-20 {
+  padding-right: 20px;
+}
+
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+
+/*
+md-select-menu md-content{
+  background-color: white;
+  md-option{
+    color: black;
+
+    &:hover{
+      background-color: $light-blue;
+      color: white;
+    }
+  }
+
+}*/

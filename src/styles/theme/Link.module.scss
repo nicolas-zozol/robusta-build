@@ -1,0 +1,82 @@
+@import "src/styles/framework/colors";
+@import "./theme";
+
+@mixin any-link{
+  background-color: transparent;
+  font-size: $normal;
+  // padding : 10px 15px;
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $primary;
+  }
+}
+
+.link {
+  @include any-link;
+}
+
+.primaryLink {
+  @include any-link;
+
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $primary;
+
+  &:hover {
+    color: $lightSecondary;
+  }
+}
+
+.titleLink {
+  text-transform: uppercase;
+  font-weight:bold;
+
+  color: $primary;
+  padding : 0;
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
+
+
+.shyLink{
+  @include any-link;
+  text-transform: uppercase;
+  color: $shyLink;
+  &:hover {
+    color: $overShyLink;
+  }
+}
+
+
+
+.ctaLink{
+  @include any-link;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: solid $primary 2px;
+  color: $black;
+  padding: 5px;
+  &:hover {
+    color: $secondary;
+  }
+}
+
+
+
+.tagLink{
+  @include any-link;
+  text-transform: lowercase;
+  font-size: $tag;
+  color:$primary;
+  &:hover {
+    color: $lightSecondary;
+  }
+}
+
+
