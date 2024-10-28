@@ -11,31 +11,29 @@ const author = nicolas
 // TODO : Not the right place at all, should not be in page
 export const About: FC<{}> = ({}) => (
   <section className={'wrap mt-40 p-20'}>
-    <Th2>A propos de {author.name}</Th2>
+    <Th2>About {author.name}</Th2>
     <div>
       <P>
-        Je suis le créateur de Robusta Code, basé à Toulouse, 🇫🇷. Je suis un
-        hard-core coder et maker expérimenté, avec un background scientifique.
+          I am the creator of Robusta Build, based in Toulouse, 🇫🇷.
+          I'm a skilled coder and hands-on maker with 20 years of experience and a scientific background.
       </P>
       <P>
-        Je suis <em>Oracle Master Java Certified</em> et
+        I am <em>Oracle Master Java Certified</em> and
         <ShyLink out={'https://www.toptal.com/resume/nicolas-zozol'}>
           {' '}
-          screené par Toptal
+          screened by Toptal
         </ShyLink>
-        , une agency de freelance d&apos;élite. Je travaille avec de grandes
-        compagnies telles que{' '}
+          , the elite freelance agency. I worked with Big Companies like{' '}
         <ShyLink out={'https://www.renault.com'}> Renault </ShyLink>
         or{' '}
         <ShyLink out={'https://www.bcg.com/'}>Boston Consulting Group</ShyLink>,
-        tout comme avec des start-ups, telles que{' '}
-        <ShyLink out={'https://www.nauto.com/'}> Nauto </ShyLink> ou
-        <ShyLink out={'https://www.diool.com/'}> Diool</ShyLink>.
+        as well as many startups such as {' '}
+        <ShyLink out={'https://www.nauto.com/'}> Nauto </ShyLink>,
+        <ShyLink out={'https://www.diool.com/'}> Diool</ShyLink>, <ShyLink out={'https://www.swaap.finance/'}> Swaap Finance</ShyLink>.
         {/* CTA : Hire me on Toptal */}
       </P>
       <P>
-        Je veux utiliser mon experience et mon organisation pour améliorer la
-        qualité du code produit et fluidifier vos processus de livraison.
+          Leveraging my expertise, I am committed to improving code quality and enhancing delivery efficiency.
       </P>
       {/* CTA : Contact-me on linkedIn*/}
     </div>
@@ -87,4 +85,3 @@ export const About: FC<{}> = ({}) => (
     </div>
   </section>
 )
-export default About

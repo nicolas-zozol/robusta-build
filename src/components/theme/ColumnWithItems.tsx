@@ -61,8 +61,8 @@ export function TThreeColumns ({col1, col2, col3}:TThreeColumnsProps){
 }
 
 export const homeColumn1 = {
-  title: 'Formation',
-  description: 'Robusta Code donne des formations depuis 10 ans. Toujours personnalisées, mises a jour et améliorées.',
+  title: 'Training',
+  description: 'With a decade of experience, Robusta Build offers training that’s always tailored, current, and continually refined.',
   items: [
     'Clean Code',
     'React',
@@ -73,8 +73,7 @@ export const homeColumn1 = {
 
 export const homeColumn2 = {
   title: 'Code',
-  description: 'Nous sommes des makers. Nous délivrons tous les jours pour nos clients, et comittons du code pour notre propre MRR. ' +
-    'Ici, on ship !',
+  description: 'Every day, we bring projects to life, committing code and delivering for our clients. Here, shipping is a way of life!',
   items: [
     {title:'Portfolio', link:'https://www.toptal.com/resume/nicolas-zozol', out:true},
     {title:'Masala Parser',link:'https://github.com/masala/masala-parser', out:true},
@@ -83,12 +82,11 @@ export const homeColumn2 = {
 }
 
 export const homeColumn3 = {
-  title: 'Stratégie',
-  description: "Coder aujourd'hui n'est pas plus compliqué, mais les options sont surchargées. Nous visons le " +
-    "business done, avec une complexité minimale et une scalabilité maximale.",
+  title: 'Strategy',
+  description: "While coding isn’t more complex today, the options can be overwhelming. Our goal is efficient business with minimal complexity and high scalability.",
   items: [
     'Blockchain',
-    'Scalabilité',
+    'Scalability',
     'CQRS'
   ]
 }
