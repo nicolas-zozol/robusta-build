@@ -24,3 +24,4 @@ export const BasicLayout = ({ title, children }: Props) => {
     </div>
   )
 }
+export default BasicLayout
