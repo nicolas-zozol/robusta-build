@@ -10,7 +10,7 @@ const About: NextPage<HomeProps> = ({}) => {
     <BasicLayout>
       <div className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
-          <p>Copyright 2013-2021 Robusta Code</p>
+          <p>Copyright 2013-2021 Robusta Build</p>
           <p>Hosted by Netlify</p>
           <p>
             Edited by Robusta Build, 1038 route de Moundas, 31600 Lamasquere,

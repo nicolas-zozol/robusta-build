@@ -13,7 +13,7 @@ export const HomeSeo: React.FC<HomeSeoProps> = () => {
       <meta
         name="keywords"
         content={
-          'robusta code, clean code, beginning solidity, solidity tutorial'
+          'robusta build, clean code, beginning solidity, solidity tutorial'
         }
       />
       <meta name="title" content={siteName} />
@@ -55,11 +55,11 @@ function getJsonLd() {
   const jsonLd: any = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Robusta Code',
-    url: 'https://www.robusta.io/',
+    name: 'Robusta Build',
+    url: 'https://www.robusta.build/',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.robusta.io/public/images/logo.png',
+      url: 'https://www.robusta.build/public/images/logo.png',
     },
   }
   return jsonLd

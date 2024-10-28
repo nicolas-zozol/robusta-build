@@ -24,7 +24,7 @@ export const PostSeo: React.FC<PostSeoProps> = ({ post }) => {
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@NicolasZozol" />
       <meta name="twitter:creator" content="@NicolasZozol" />
-      <meta name="twitter:title" content={'Robusta.io: ' + post.title} />
+      <meta name="twitter:title" content={'Robusta.build: ' + post.title} />
       <meta name="twitter:description" content={post.excerpt} />
       <meta
         name="twitter:image"
@@ -73,15 +73,15 @@ function getJsonLd(post: Post) {
     author: {
       '@type': 'Person',
       name: post.author,
-      url: 'https://www.robusta.io',
+      url: 'https://www.robusta.build',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Robusta Code',
-      url: 'https://www.robusta.io/',
+      name: 'Robusta Build',
+      url: 'https://www.robusta.build/',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.robusta.io/public/images/logo.png',
+        url: 'https://www.robusta.build/public/images/logo.png',
       },
     },
   }

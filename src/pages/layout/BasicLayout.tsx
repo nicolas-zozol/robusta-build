@@ -10,7 +10,7 @@ interface Props {
 
 export const BasicLayout = ({ title, children }: Props) => {
   if (!title) {
-    title = 'Robusta Code - Clean Code, Javascript, Blockchain'
+    title = 'Robusta Build - Clean Code, Javascript, Blockchain'
   }
   return (
     <div>
@@ -24,4 +24,3 @@ export const BasicLayout = ({ title, children }: Props) => {
     </div>
   )
 }
-export default BasicLayout

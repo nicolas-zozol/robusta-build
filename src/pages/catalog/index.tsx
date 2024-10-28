@@ -13,7 +13,7 @@ export default function Catalog() {
                     <a>Back to home</a>
                 </Link>
             </h2>
-            <ShyLink out={"https://www.robusta.io"}>
+            <ShyLink out={"https://www.robusta.build"}>
                 Head grey uppercase link
             </ShyLink>
             <div suppressHydrationWarning>

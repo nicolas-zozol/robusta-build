@@ -1,8 +1,8 @@
 const mission = 'Building Internet the right way'
-const url = 'https://www.robusta.io'
+const url = 'https://www.robusta.build'
 export const configuration = {
   site: url,
-  siteName: 'Robusta Code',
+  siteName: 'Robusta Build',
   mission,
   logo:`${url}/images/logo.png`,
   rollSize: 6

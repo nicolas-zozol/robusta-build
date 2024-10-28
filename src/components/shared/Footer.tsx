@@ -1,5 +1,4 @@
 import {FC} from 'react'
-import classes from '../../styles/Home.module.scss'
 import nav from '../../styles/components/nav.module.scss'
 
 import {ShyLink} from '../theme/TLink'
@@ -24,7 +23,7 @@ export const Footer: FC<{}> = ({}) => {
 
       <span className={'text-center mt-80'}>
             <Link href={'/'}>
-                <Image src={'/images/logo-2-banner.png'} width={250} alt="logo Robusta Code"/>
+                <Image src={'/images/logo-2-banner.png'} width={250} alt="logo Robusta Build"/>
             </Link>
       </span>
 

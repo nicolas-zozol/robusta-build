@@ -8,7 +8,7 @@ interface Props {
 
 /**
  * Display a text after a small timeout to avoid being referenced by google and avoid dummy bots
- * Nicolas Zozol - https://www.robusta.io
+ * Nicolas Zozol - https://www.robusta.build
  */
 export const TimeDiffered: FC<Props> = ({ time = 2000, children }) => {
   const [node, setNode] = useState<ReactNode>('')

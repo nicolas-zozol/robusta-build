@@ -34,13 +34,12 @@ export const TextStories: Story[] = [
         content: (
             <>
                 <div style={{width: '600px'}}>
-                    <P>I am the founder of Robusta Code. I have a Physics and chemistry background as I was
+                    <P>I am the founder of Robusta Build. I have a Physics and chemistry background as I was
                         Science Teacher for kids in France and Boston, USA.</P>
                     <hr/>
-                    <P>For what it&apos;s worth, I am a <strong>Oracle Master Java Certified</strong> and
+                    <P>I am a <strong>Oracle Master Java Certified</strong> and
                         was <ShyLink to={"https://www.toptal.com/resume/nicolas-zozol"}>screened by Toptal</ShyLink>, an
-                        Elite agency
-                        . I worked with <ShyLink to={'https://www.teqtrack.fr/'}>TeqTrack</ShyLink>, and big companies such as Renault or Boston Consulting Group, as well as fresh
+                        Elite agency. I worked with <ShyLink to={'https://www.teqtrack.fr/'}>TeqTrack</ShyLink>, and big companies such as Renault or Boston Consulting Group, as well as fresh
                         start-ups, like <ShyLink to={'https://www.teqtrack.fr/'}>TeqTrack</ShyLink>  or <ShyLink to={"https://api.diool.com/"}>Diool</ShyLink>. </P>
                     <hr/>
 

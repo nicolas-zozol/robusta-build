@@ -88,8 +88,8 @@ export const TLinkStories: Story[] = [
             Roll Title
           </TitleLink>
 
-          <AnyLink out={'https://www.robusta.io'}>Standard link</AnyLink>
-          <ShyLink out={'https://www.robusta.io'}>
+          <AnyLink out={'https://www.robusta.build'}>Standard link</AnyLink>
+          <ShyLink out={'https://www.robusta.build'}>
             Shy upperlink link
           </ShyLink>
 
