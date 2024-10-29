@@ -11,6 +11,14 @@ div.mainLogo{
   display:flex;
   justify-content: center;
 
+  span.emojis{
+    font-family: "Roboto Slab", serif;
+    font-size: 3rem;
+    font-weight: 700;
+    background-color: #2B6494;
+    //margin-right: 10px;
+  }
+
   img{
     padding: 20px;
     cursor: pointer;

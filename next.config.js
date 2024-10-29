@@ -7,4 +7,7 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
+  compiler:{
+    styledComponents: true,
+  }
 }

@@ -8,7 +8,7 @@ export default function FirstPost() {
             <h1 className={'card bg-blue'}>First Post</h1>
             <h2 className={styles.first}>
                 <Link href="/">
-                    <a>Back to home</a>
+                    Back to home
                 </Link>
             </h2>
         </>

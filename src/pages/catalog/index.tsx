@@ -10,7 +10,7 @@ export default function Catalog() {
             <h1 className={'card'}>Catalog</h1>
             <h2 className={''}>
                 <Link href="/">
-                    <a>Back to home</a>
+                    Back to home
                 </Link>
             </h2>
             <ShyLink out={"https://www.robusta.build"}>

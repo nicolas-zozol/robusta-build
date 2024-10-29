@@ -36,7 +36,7 @@ export function AnyLink({out, to, children, className}: AnyLinkProps) {
     to = undefined
   }
   if (to && to.length > 0) {
-    return (<Link href={to}><a className={styles.link + ' ' + className}>{children}</a></Link>)
+    return (<Link href={to} legacyBehavior><a className={styles.link + ' ' + className}>{children}</a></Link>)
   } else {
     return <a className={styles.link + ' ' + className} href={out}>{children}</a>
   }

@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import styled from 'styled-components'
 import { BasicLayout } from './layout/BasicLayout'
 
 interface HomeProps {
@@ -8,7 +9,7 @@ interface HomeProps {
 const About: NextPage<HomeProps> = ({}) => {
   return (
     <BasicLayout>
-      <div className={'grey-background mtb-20'}>
+      <RootAbout className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
           <p>Copyright 2013-2021 Robusta Build</p>
           <p>Hosted by Netlify</p>
@@ -20,10 +21,15 @@ const About: NextPage<HomeProps> = ({}) => {
             <em>Building internet the right way</em> since 2002
           </p>
         </div>
-      </div>
+      </RootAbout>
     </BasicLayout>
   )
 }
+
+const RootAbout = styled.div`
+  margin: 20px 0;
+  padding: 20px;
+`
 
 export default About
 
