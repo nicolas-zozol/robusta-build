@@ -1,0 +1,21 @@
+@media print {
+  /* Ensures each project gets individual layout treatment */
+  .project {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Page jump after 5 projects */
+  hr.jump {
+    page-break-after: always;
+    height: 0;
+    visibility: hidden;
+  }
+
+  /* On pages after the first, hide the sidebar */
+  @page :nth(2) {
+    .sidebar {
+      display: none;
+    }
+  }
+}
