@@ -18,7 +18,7 @@ header h1 {
   font-family: 'Roboto Slab', serif;
   font-weight: bolder;
   font-size: 3rem;
-  //background-color: yellow;
+  /*background-color: yellow;*/
 }
 
 header .title {
@@ -26,6 +26,10 @@ header .title {
   font-weight: bold;
   margin-top: -10px;
   color: #0063b1;
+}
+
+header .second-title {
+  margin-top: 0;
 }
 
 header ul {
