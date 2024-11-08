@@ -1,11 +1,16 @@
 @media print {
   @page {
     size: A4;
-    margin: 5mm;
+    /*  margin: 5mm;*/
   }
 
   body {
   }
+
+  div.cv-page {
+    margin: 0 auto;
+  }
+
   /* Ensures each project gets individual layout treatment */
   .project {
     break-inside: avoid;
