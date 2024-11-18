@@ -22,6 +22,14 @@ export const HomeSeo: React.FC<HomeSeoProps> = () => {
       <meta name="description" content={`${siteName} : ${mission}`} />
       {/* noindex && <meta name="robots" content="noindex"/>*/}
 
+      <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      <link
+        rel="icon"
+        href="/favicon-32x32.png"
+        sizes="32x32"
+        type="image/x-icon"
+      />
+
       {/* Twitter Open Graph Like */}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@NicolasZozol" />
