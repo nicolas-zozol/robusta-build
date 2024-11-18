@@ -11,7 +11,7 @@ type FeaturedPostProps = {
 export const FeaturedPosts = ({ posts }: FeaturedPostProps) => {
   return (
     <>
-      <Th2>Articles récents</Th2>
+      <Th2>recent articles</Th2>
 
       <div className={'wrap justify-between'}>
         {posts.map((post: Post) => (

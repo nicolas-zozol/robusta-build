@@ -1,4 +1,4 @@
-@import "./colors";
+@import './colors';
 
 .bg-white {
   background-color: $white;
@@ -15,7 +15,6 @@
 .min-400 {
   min-width: 400px;
 }
-
 
 .r-10 {
   border-radius: 10px;
@@ -152,8 +151,6 @@ hr {
   margin-bottom: 20px;
 }
 
-
-
 .ml-10 {
   margin-left: 10px;
 }
@@ -174,6 +171,13 @@ hr {
   padding-right: 20px;
 }
 
+.pt-20 {
+  padding-top: 20px;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
 
 .position-relative {
   position: relative;
@@ -182,7 +186,6 @@ hr {
 .position-absolute {
   position: absolute;
 }
-
 
 /*
 md-select-menu md-content{

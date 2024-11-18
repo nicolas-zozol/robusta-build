@@ -1,12 +1,9 @@
 import { NextPage } from 'next'
+import { EmptyLine } from '../components/catalog/EmptyLine'
+import { LinkedInCta } from '../components/catalog/LinkedInCta'
+import { WebResume } from '../components/resume/WebResume'
 import { BasicLayout } from './layout/BasicLayout'
 import { getSortedPostsData, Post } from '../logic/posts'
-import {
-  homeColumn1,
-  homeColumn2,
-  homeColumn3,
-  TThreeColumns,
-} from '../components/theme/ColumnWithItems'
 import { About } from '../components/home/About'
 import { FeaturedPosts } from '../components/blog/Featured'
 import { HomeSeo } from '../components/seo/HomeSeo'
@@ -34,14 +31,15 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
       <div className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
           <About />
+          <EmptyLine />
+          <WebResume />
+          <EmptyLine />
           <div>
-            <iframe
-              src={'/nicolas/resume.html'}
-              width={'100%'}
-              height={'800px'}
-            ></iframe>
+            <EmptyLine size={2} />
+            <LinkedInCta />
+            <EmptyLine size={2} />
           </div>
-
+          <EmptyLine />
           <FeaturedPosts posts={pickFeatured(allPostsData)} />
         </div>
       </div>

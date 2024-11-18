@@ -11,7 +11,7 @@ const About: NextPage<HomeProps> = ({}) => {
     <BasicLayout>
       <RootAbout className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
-          <p>Copyright 2013-2021 Robusta Build</p>
+          <p>Copyright 2013-2025 Robusta Build</p>
           <p>Hosted by Netlify</p>
           <p>
             Edited by Robusta Build, 1038 route de Moundas, 31600 Lamasquere,

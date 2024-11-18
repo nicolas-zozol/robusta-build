@@ -1,17 +1,20 @@
 import { FC } from 'react'
+import { EmptyLine } from '../catalog/EmptyLine'
+import { LinkedInCta } from '../catalog/LinkedInCta'
 import { ShyLink } from '../theme/TLink'
 import { Image } from 'react-bootstrap'
 import { Th2 } from '../theme/TTitle'
 import { P } from '../theme/TText'
 import { TimeDiffered } from '../shared/TimeDiffered'
 import { nicolas } from '../../logic/author'
+import { SocialProof } from './SocialProof'
 
 const author = nicolas
 
 // TODO : Not the right place at all, should not be in page
 export const About: FC<{}> = ({}) => (
-  <section className={'wrap mt-40 p-20'}>
-    <Th2>I turn your ideas into successful project</Th2>
+  <section className={'wrap mt-40 pt-40'}>
+    <Th2>I turn your ideas into robust products</Th2>
     <div>
       <P>
         I am <strong>Nicolas Zozol</strong>, the creator of Robusta Build, based
@@ -40,6 +43,11 @@ export const About: FC<{}> = ({}) => (
         enhancing delivery efficiency.
       </P>
 
+      <div>
+        <EmptyLine size={4} />
+        <LinkedInCta />
+      </div>
+
       {/* Social proofs: linkedin, Github, Stack Overflow */}
       {/* CTA : Contact-me on linkedIn, mail, etc...*/}
       {/* Put the CV right below with no mail/phone */}
@@ -52,18 +60,10 @@ export const About: FC<{}> = ({}) => (
       }}
     >
       <Image width={300} alt="avatar" src={author.imageUrl} />
-      <a href={'https://stackoverflow.com/users/968988/nicolas-zozol'}>
-        <img
-          style={{
-            marginBottom: '10px',
-            width: 'min-content',
-          }}
-          src={author.stackOverflow}
-          alt="stack-overflow"
-        />
-      </a>
+
       <TimeDiffered>
         <div>
+          <EmptyLine />
           <img
             style={{
               marginRight: '10px',
@@ -90,6 +90,10 @@ export const About: FC<{}> = ({}) => (
           </div>
         */}
       </TimeDiffered>
+    </div>
+
+    <div>
+      <SocialProof />
     </div>
   </section>
 )

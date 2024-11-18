@@ -6,7 +6,6 @@ import { ShyLink } from '../theme/TLink'
 import Link from 'next/link'
 import { Story } from '../catalog/ComponentCatalog.model'
 // TODO: not the right image
-import { Image } from 'react-bootstrap'
 import { isHome } from '../shared/is-home'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
