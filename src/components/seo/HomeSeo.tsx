@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { configuration } from '../../configuration'
+import GtmScript from './GtmScript.jsx'
 
 interface HomeSeoProps {}
 
@@ -8,6 +9,7 @@ export const HomeSeo: React.FC<HomeSeoProps> = () => {
 
   return (
     <Head>
+      <GtmScript />
       {/* Main stream HTML */}
       <title>{siteName}</title>
       <meta

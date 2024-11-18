@@ -11,32 +11,40 @@ const author = nicolas
 // TODO : Not the right place at all, should not be in page
 export const About: FC<{}> = ({}) => (
   <section className={'wrap mt-40 p-20'}>
-    <Th2>About {author.name}</Th2>
+    <Th2>I turn your ideas into successful project</Th2>
     <div>
       <P>
-          I am the creator of Robusta Build, based in Toulouse, 🇫🇷.
-          I'm a skilled coder and hands-on maker with 20 years of experience and a scientific background.
+        I am <strong>Nicolas Zozol</strong>, the creator of Robusta Build, based
+        in Toulouse, 🇫🇷. I'm a skilled coder and hands-on maker with 20 years of
+        experience and a scientific background.
       </P>
+      <br />
       <P>
-        I am <em>Oracle Master Java Certified</em> and
+        I am an <em>Oracle Master Java Certified</em> and
         <ShyLink out={'https://www.toptal.com/resume/nicolas-zozol'}>
           {' '}
           screened by Toptal
         </ShyLink>
-          , the elite freelance agency. I worked with Big Companies like{' '}
+        , the elite freelance agency. I worked with Big Companies like{' '}
         <ShyLink out={'https://www.renault.com'}> Renault </ShyLink>
         or{' '}
         <ShyLink out={'https://www.bcg.com/'}>Boston Consulting Group</ShyLink>,
-        as well as many startups such as {' '}
+        as well as many startups such as{' '}
         <ShyLink out={'https://www.nauto.com/'}> Nauto </ShyLink>,
-        <ShyLink out={'https://www.diool.com/'}> Diool</ShyLink>, <ShyLink out={'https://www.swaap.finance/'}> Swaap Finance</ShyLink>.
+        <ShyLink out={'https://www.diool.com/'}> Diool</ShyLink>,{' '}
+        <ShyLink out={'https://www.swaap.finance/'}> Swaap Finance</ShyLink>.
         {/* CTA : Hire me on Toptal */}
       </P>
       <P>
-          Leveraging my expertise, I am committed to improving code quality and enhancing delivery efficiency.
+        Leveraging my expertise, I am committed to improving code quality and
+        enhancing delivery efficiency.
       </P>
-      {/* CTA : Contact-me on linkedIn*/}
+
+      {/* Social proofs: linkedin, Github, Stack Overflow */}
+      {/* CTA : Contact-me on linkedIn, mail, etc...*/}
+      {/* Put the CV right below with no mail/phone */}
     </div>
+
     <div
       style={{
         display: 'flex',

@@ -22,6 +22,7 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
   return (
     <BasicLayout>
       <HomeSeo />
+      {/*
       <div className={'blog-container'}>
         <TThreeColumns
           col1={homeColumn1}
@@ -29,9 +30,18 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
           col3={homeColumn3}
         />
       </div>
+      */}
       <div className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
           <About />
+          <div>
+            <iframe
+              src={'/nicolas/resume.html'}
+              width={'100%'}
+              height={'800px'}
+            ></iframe>
+          </div>
+
           <FeaturedPosts posts={pickFeatured(allPostsData)} />
         </div>
       </div>
