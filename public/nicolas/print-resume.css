@@ -7,6 +7,10 @@
   body {
   }
 
+  h2 {
+    font-size: 2.4rem;
+  }
+
   div.cv-page {
     margin: 0 auto;
   }
