@@ -34,6 +34,7 @@ export const LinkedInCta: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
+      <i data-feather="phone"></i>
       Contact me on LinkedIn
     </CtaContainer>
   )
