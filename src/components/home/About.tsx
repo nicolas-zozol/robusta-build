@@ -8,6 +8,7 @@ import { Th2 } from '../theme/TTitle'
 import { P } from '../theme/TText'
 import { TimeDiffered } from '../shared/TimeDiffered'
 import { nicolas } from '../../logic/author'
+import { Skills } from './Skills'
 import { SocialProof } from './SocialProof'
 
 const author = nicolas
@@ -15,7 +16,7 @@ const author = nicolas
 // TODO : Not the right place at all, should not be in page
 export const About: FC<{}> = ({}) => (
   <section className={'wrap mt-40 pt-40'}>
-    <Th2>Web3 & Java Fullstack freelance</Th2>
+    <Th2>Experienced Fullstack freelance</Th2>
     <div>
       <P>
         I am <strong>Nicolas Zozol</strong>, the creator of Robusta Build, based
@@ -97,6 +98,8 @@ export const About: FC<{}> = ({}) => (
 
     <div>
       <SocialProof />
+      <EmptyLine size={2} />
+      <Skills />
     </div>
   </section>
 )
