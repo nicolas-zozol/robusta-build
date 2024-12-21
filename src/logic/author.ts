@@ -13,7 +13,7 @@ export interface Author {
 export const authors: Author[] = [
   {
     name: 'Nicolas Zozol',
-    imageUrl: '/images/fabrique-medium.jpg',
+    imageUrl: '/images/nicolas-zozol-picture.jpg',
     bio: 'Former science teacher, almost serial entrepreneur and currently hard-core coder',
     twitter: 'https://twitter.com/RobustaCode',
     linkedIn: 'https://www.linkedin.com/in/robustacode/',

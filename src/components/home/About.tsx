@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import styled from 'styled-components'
 import { EmptyLine } from '../catalog/EmptyLine'
 import { LinkedInCta } from '../catalog/LinkedInCta'
 import { ShyLink } from '../theme/TLink'
@@ -14,13 +15,18 @@ const author = nicolas
 // TODO : Not the right place at all, should not be in page
 export const About: FC<{}> = ({}) => (
   <section className={'wrap mt-40 pt-40'}>
-    <Th2>I turn your ideas into robust products</Th2>
+    <Th2>Web3 & Java Fullstack freelance</Th2>
     <div>
       <P>
         I am <strong>Nicolas Zozol</strong>, the creator of Robusta Build, based
-        in Toulouse, 🇫🇷. I'm a skilled coder and hands-on maker with 20 years of
-        experience and a scientific background.
+        in Toulouse, 🇫🇷. Do you need a A team contributor ?
       </P>
+
+      <List className={'mt-20'}>
+        <li>20+ years of experience, I started to code before Web tools </li>
+        <li>Really fullstack, from pixel perfect CSS to docker-compose</li>
+        <li>Scientific background, connecting dots of innovations</li>
+      </List>
       <br />
       <P>
         I am an <em>Oracle Master Java Certified</em> and
@@ -33,15 +39,12 @@ export const About: FC<{}> = ({}) => (
         or{' '}
         <ShyLink out={'https://www.bcg.com/'}>Boston Consulting Group</ShyLink>,
         as well as many startups such as{' '}
-        <ShyLink out={'https://www.nauto.com/'}> Nauto </ShyLink>,
-        <ShyLink out={'https://www.diool.com/'}> Diool</ShyLink>,{' '}
+        <ShyLink out={'https://www.nauto.com/'}>Nauto</ShyLink>,{' '}
+        <ShyLink out={'https://www.diool.com/'}>Diool</ShyLink>,{' '}
         <ShyLink out={'https://www.swaap.finance/'}> Swaap Finance</ShyLink>.
         {/* CTA : Hire me on Toptal */}
       </P>
-      <P>
-        Leveraging my expertise, I am committed to improving code quality and
-        enhancing delivery efficiency.
-      </P>
+      <P>My goal is to turn your ideas into robust products !</P>
 
       <div>
         <EmptyLine size={4} />
@@ -97,3 +100,5 @@ export const About: FC<{}> = ({}) => (
     </div>
   </section>
 )
+
+const List = styled.ul``

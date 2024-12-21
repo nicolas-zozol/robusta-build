@@ -47,7 +47,8 @@
 .shyLink{
   @include any-link;
   text-transform: uppercase;
-  color: $shyLink;
+  color: black;
+  font-weight: bold;
   &:hover {
     color: $overShyLink;
   }
