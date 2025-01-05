@@ -10,6 +10,7 @@ import bcg from './images/bcg.png'
 import renault from './images/renault.png'
 import oracle from './images/oracle.png'
 import toptal from './images/toptal.png'
+import GitHubCalendar from 'react-github-calendar'
 
 export const SocialProof: FC<{}> = ({}) => {
   return (
@@ -21,11 +22,13 @@ export const SocialProof: FC<{}> = ({}) => {
           <a href={'https://stackoverflow.com/users/968988/nicolas-zozol'}>
             <Image src={stack} alt={'stackoverflow'} placeholder={'blur'} />
           </a>
-
           <a href={'https://github.com/nicolas-zozol'}>
             <Image src={github} alt={'github'} placeholder={'blur'} />
           </a>
         </Social>
+        <div>
+          <GitHubCalendar username="nicolas-zozol" colorScheme={'light'} />
+        </div>
 
         <EmptyLine size={2} />
         <Th2>They worked with me</Th2>
