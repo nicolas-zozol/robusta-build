@@ -17,12 +17,10 @@ export const BasicLayout = ({ title, children }: Props) => {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>{title}</title>
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
       </Head>
       <FullHeader />
       <main className={'mtb-20'}>{children}</main>
       <Footer />
-      <script>feather.replace()</script>
     </div>
   )
 }

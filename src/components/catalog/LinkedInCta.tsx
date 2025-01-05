@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Phone } from 'react-feather'
 
 const CtaContainer = styled.a`
   display: flex;
@@ -22,8 +23,13 @@ const CtaContainer = styled.a`
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    opacity: 0.95;
+  }
+
+  svg {
+    margin-right: 10px;
   }
 `
 
@@ -34,7 +40,7 @@ export const LinkedInCta: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i data-feather="phone"></i>
+      <Phone />
       Contact me on LinkedIn
     </CtaContainer>
   )
