@@ -15,6 +15,17 @@ export const BasicLayout = ({ title, children }: Props) => {
   return (
     <div>
       <Head>
+        {/*Optional: Preconnect to Google's font domain for faster font loading */}
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin=""
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>{title}</title>
       </Head>

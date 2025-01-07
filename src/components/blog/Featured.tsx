@@ -22,10 +22,10 @@ export const FeaturedPosts = ({ posts }: FeaturedPostProps) => {
             <div>
               <img
                 src={getThumbnail(post)}
-                className={`${img.floatThumbnail} m-10`}
+                className={`${img.floatThumbnail} ml-10`}
                 alt={post.title}
               />
-              <p>{post.excerpt}</p>
+              <p className={'no-justify'}>{post.excerpt}</p>
             </div>
             <CtaLink to={`/blog/${post.category}/${post.slug}`}>
               Read More
