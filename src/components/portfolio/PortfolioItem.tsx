@@ -19,11 +19,8 @@ export const PortfolioItem = ({ images, title, children }: Props) => {
             src={img}
             alt={`${title}-${idx}`}
             placeholder="blur"
-            // Provide your desired dimensions
-            // or `fill` / `responsive` if you prefer
-            width={300}
             height={200}
-            style={{ objectFit: 'cover', border: '1px solid #ccc' }}
+            style={{ objectFit: 'contain', border: '1px solid #ccc' }}
           />
         ))}
       </div>
