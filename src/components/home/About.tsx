@@ -19,13 +19,20 @@ export const About: FC<{}> = ({}) => (
     <Th2>Experienced Fullstack freelance</Th2>
     <div>
       <P>
-        I am <strong>Nicolas Zozol</strong>, the creator of Robusta Build, based
-        in Toulouse, 🇫🇷. Do you need a A team contributor ?
+        I am <strong>Nicolas Zozol</strong>, Freelance based in Toulouse,
+        France. Do you need a A team contributor ?
       </P>
 
       <List className={'mt-20'}>
-        <li>20+ years of experience, I started to code before Web tools </li>
-        <li>Really fullstack, from pixel perfect CSS to docker-compose</li>
+        <li>20+ years of experience, I started to code before Web tools</li>
+        <li>
+          <strong>Really fullstack</strong>, from pixel perfect CSS to
+          docker-compose
+        </li>
+        <li>
+          Specialist of EVM blockchains, including <strong>ethers.js</strong>{' '}
+          and Solidity
+        </li>
         <li>Scientific background, connecting dots of innovations</li>
       </List>
       <br />
