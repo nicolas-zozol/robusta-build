@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { desktopSize } from '../shared/sizes'
 import { TimeDiffered } from '../shared/TimeDiffered'
 import { Th2 } from '../theme/TTitle'
+import { Download } from 'react-feather'
 
 export const WebResume: FC<{}> = ({}) => {
   return (
@@ -22,10 +23,12 @@ export const WebResume: FC<{}> = ({}) => {
           target={'_blank'}
           href={'/nicolas/nicolas-zozol-web3-resume.pdf'}
         >
+          <Download />
           Download Nicolas's CV
         </CvLink>
 
         <CvLink target={'_blank'} href={'/nicolas/nicolas-zozol-portfolio.pdf'}>
+          <Download />
           Download Nicolas's Portfolio
         </CvLink>
       </PdfSection>
@@ -41,15 +44,21 @@ const WebSection = styled.section`
 const PdfSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 60px;
 `
 
 const RootResume = styled.div``
 
 const CvLink = styled.a`
+  display: flex;
+  color: blue;
+
   font-size: 1.2rem;
   &:hover {
     text-decoration: underline;
     opacity: 0.5;
+  }
+  svg {
+    margin-right: 5px;
   }
 `
