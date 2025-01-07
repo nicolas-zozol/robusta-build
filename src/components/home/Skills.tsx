@@ -42,6 +42,18 @@ export const Skills: FC<{}> = () => {
             <li>Responsive Design</li>
           </List>
         </Skill>
+
+        <Skill>
+          <Category>Web marketing</Category>
+          <List>
+            <li>SEO 101 and more</li>
+            <li>AIDA model</li>
+            <li>Google analytics</li>
+            <li>Segment</li>
+            <li>MixPanel</li>
+            <li>Personal library</li>
+          </List>
+        </Skill>
       </SkillCategories>
     </RootSkills>
   )
