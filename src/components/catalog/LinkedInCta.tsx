@@ -31,6 +31,8 @@ const CtaContainer = styled.a`
   svg {
     margin-right: 10px;
   }
+
+  margin: 1rem auto;
 `
 
 export const LinkedInCta: React.FC = () => {

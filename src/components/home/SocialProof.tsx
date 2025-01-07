@@ -26,9 +26,9 @@ export const SocialProof: FC<{}> = ({}) => {
             <Image src={github} alt={'github'} placeholder={'blur'} />
           </a>
         </Social>
-        <div>
+        <ShowGithub>
           <GitHubCalendar username="nicolas-zozol" colorScheme={'light'} />
-        </div>
+        </ShowGithub>
 
         <EmptyLine size={2} />
         <Th2>They worked with me</Th2>
@@ -73,5 +73,11 @@ const Enterprises = styled(Social)`
   @media (max-width: ${tabletSize}) {
     gap: 40px;
     flex-direction: column;
+  }
+`
+
+const ShowGithub = styled.div`
+  @media (max-width: ${tabletSize}) {
+    display: none;
   }
 `
