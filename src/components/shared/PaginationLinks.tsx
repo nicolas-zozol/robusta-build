@@ -21,7 +21,7 @@ export const PaginationLinks = ({ currentPage, numberOfPages }: Props) => {
         <span className={`${a.pagination} ${a.disabled} `}>previous</span>
       ) : (
         <span>
-          <Link href={previousPage}>
+          <Link href={previousPage} legacyBehavior={true}>
             <a>previous</a>
           </Link>
         </span>
@@ -37,7 +37,10 @@ export const PaginationLinks = ({ currentPage, numberOfPages }: Props) => {
           </span>
         ) : (
           <span key={i}>
-            <Link href={`${i === 0 ? '/blog' : '/blog/page/' + (i + 1)}`}>
+            <Link
+              href={`${i === 0 ? '/blog' : '/blog/page/' + (i + 1)}`}
+              legacyBehavior={true}
+            >
               <a className={`${a.pagination}`}>{i + 1}</a>
             </Link>
           </span>
@@ -47,7 +50,7 @@ export const PaginationLinks = ({ currentPage, numberOfPages }: Props) => {
         <span className={`${a.pagination} ${a.disabled} `}>next</span>
       ) : (
         <span>
-          <Link href={nextPage}>
+          <Link href={nextPage} legacyBehavior={true}>
             <a>next</a>
           </Link>
         </span>

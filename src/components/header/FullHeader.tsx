@@ -15,33 +15,40 @@ export const FullHeader: FC<{}> = ({}) => {
 
   return (
     <header className={classes.fullHeader}>
-      <nav className={nav.horizontalNav}>
-        <ul>
-          {!isHome(router) && (
-            <li>
-              <ShyLink to="/">Home</ShyLink>
-            </li>
-          )}
-          <li>
+      <Nav className={nav.horizontalNav + ' blog-container'}>
+        {!isHome(router) && (
+          <span className={'mr-40'}>
+            <ShyLink to="/">Home</ShyLink>
+          </span>
+        )}
+
+        <Start>
+          <span>
             <ShyLink>CLEAN CODE</ShyLink>
-          </li>
-          <li>
-            <ShyLink>JAVASCRIPT</ShyLink>
-          </li>
-          <li>
+          </span>
+          <span>
+            <ShyLink>WEB</ShyLink>
+          </span>
+          <span>
             <ShyLink>BLOCKCHAIN</ShyLink>
-          </li>
-          <li>
+          </span>
+          <span>
             <ShyLink>SOLIDITY</ShyLink>
-          </li>
-          <li>
+          </span>
+
+          <span>
+            <ShyLink>ETHERS.js</ShyLink>
+          </span>
+        </Start>
+        <End>
+          <span>
             <ShyLink to="/blog">BLOG</ShyLink>
-          </li>
-        </ul>
-      </nav>
+          </span>
+        </End>
+      </Nav>
 
       <div className={classes.mainLogo}>
-        <Link href={'/'}>
+        <Link href={'/'} legacyBehavior={true}>
           <Logo>
             <div>Robusta Build</div>
             <div className={'emojis'}>💪🏗</div>
@@ -51,6 +58,21 @@ export const FullHeader: FC<{}> = ({}) => {
     </header>
   )
 }
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+`
+const Start = styled.div`
+  display: flex;
+  gap: 20px;
+`
+
+const End = styled.div`
+  display: flex;
+  gap: 20px;
+`
 
 const Logo = styled.span`
   margin: 20px 0;

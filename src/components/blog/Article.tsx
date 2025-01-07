@@ -51,7 +51,7 @@ const Article = ({ post, valuableTags }: ArticleProps) => {
         <section className="list-tags">
           <strong>Learn more :</strong>
           {valuableTags.map((tag: string, index: number, array: string[]) => (
-            <Link href={`/learn/${tag}`} key={tag}>
+            <Link href={`/learn/${tag}`} key={tag} legacyBehavior={true}>
               <a>
                 {tag} {index < array.length - 1 ? ', ' : ''}
               </a>

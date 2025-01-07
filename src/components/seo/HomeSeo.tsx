@@ -5,17 +5,17 @@ import GtmScript from './GtmScript.jsx'
 interface HomeSeoProps {}
 
 export const HomeSeo: React.FC<HomeSeoProps> = () => {
-  const { site, siteName, mission, logo } = configuration
+  const { site, siteName, mission, logo, siteTitle } = configuration
 
   return (
     <Head>
       <GtmScript />
       {/* Main stream HTML */}
-      <title>{siteName}</title>
+      <title>{siteTitle}</title>
       <meta
         name="keywords"
         content={
-          'robusta build, clean code, beginning solidity, solidity tutorial'
+          'robusta build, freelance, clean code, solidity, ethers.js, web, blockchain'
         }
       />
       <meta name="title" content={siteName} />

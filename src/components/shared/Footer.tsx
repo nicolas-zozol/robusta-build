@@ -28,7 +28,7 @@ export const Footer: FC<{}> = ({}) => {
       </nav>
 
       <span className={'text-center mt-80'}>
-        <Link href={'/'}>
+        <Link href={'/'} legacyBehavior={true}>
           <HorizontalLogo>
             <div>Robusta Build</div>
             <div className={'emojis'}>💪🏗</div>
