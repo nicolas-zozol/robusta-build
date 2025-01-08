@@ -2,6 +2,7 @@ import { Post } from '../../logic/posts'
 import Head from 'next/head'
 import { configuration } from '../../configuration'
 import { getPostUrl, path } from '../../logic/url'
+import GtmScript from './GtmScript'
 
 interface PostSeoProps {
   post: Post
@@ -13,6 +14,8 @@ export const PostSeo: React.FC<PostSeoProps> = ({ post }) => {
 
   return (
     <Head>
+      <GtmScript />
+      {/*Google Tag Manager*/}
       {/* Main stream HTML */}
       <title>{post.title}</title>
       <meta name="keywords" content={post.keywords.join(', ')} />
