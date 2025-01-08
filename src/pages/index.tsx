@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { EmptyLine } from '../components/catalog/EmptyLine'
 import { LinkedInCta } from '../components/catalog/LinkedInCta'
+import { PortfolioPreview } from '../components/portfolio/PortfolioPreview'
 import { WebResume } from '../components/resume/WebResume'
 import { BasicLayout } from './layout/BasicLayout'
 import { getSortedPostsData, Post } from '../logic/posts'
@@ -31,6 +32,8 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
       <div className={'grey-background mtb-20'}>
         <div className={'blog-container'}>
           <About />
+          <EmptyLine />
+          <PortfolioPreview />
           <EmptyLine />
           <WebResume />
           <EmptyLine />

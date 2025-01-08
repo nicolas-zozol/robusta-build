@@ -51,12 +51,10 @@ const RootResume = styled.div``
 
 const CvLink = styled.a`
   display: flex;
-  color: blue;
-
+  color: #0063b1;
   font-size: 1.2rem;
   &:hover {
     text-decoration: underline;
-    opacity: 0.5;
   }
   svg {
     margin-right: 5px;

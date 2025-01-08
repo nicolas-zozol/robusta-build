@@ -1,7 +1,7 @@
-@import "src/styles/framework/colors";
-@import "./theme";
+@import 'src/styles/framework/colors';
+@import './theme';
 
-@mixin any-link{
+@mixin any-link {
   background-color: transparent;
   font-size: $normal;
   // padding : 10px 15px;
@@ -32,19 +32,17 @@
 
 .titleLink {
   text-transform: uppercase;
-  font-weight:bold;
+  font-weight: bold;
 
   color: $primary;
-  padding : 0;
+  padding: 0;
   &:hover {
     color: $primary;
     text-decoration: none;
   }
 }
 
-
-
-.shyLink{
+.shyLink {
   @include any-link;
   text-transform: uppercase;
   color: black;
@@ -54,9 +52,16 @@
   }
 }
 
+a.shyLink[href]:not([href='']) {
+  color: #0063b1;
+  font-weight: bold;
 
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
-.ctaLink{
+.ctaLink {
   @include any-link;
   text-transform: uppercase;
   font-weight: bold;
@@ -68,16 +73,12 @@
   }
 }
 
-
-
-.tagLink{
+.tagLink {
   @include any-link;
   text-transform: lowercase;
   font-size: $tag;
-  color:$primary;
+  color: $primary;
   &:hover {
     color: $lightSecondary;
   }
 }
-
-
