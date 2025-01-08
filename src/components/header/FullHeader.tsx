@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import classes from '../../styles/components/header/full-header.module.scss'
 import nav from '../../styles/components/nav.module.scss'
+import { tabletSize } from '../shared/sizes'
 
 import { ShyLink } from '../theme/TLink'
 import Link from 'next/link'
@@ -67,6 +68,10 @@ const Nav = styled.nav`
 const Start = styled.div`
   display: flex;
   gap: 20px;
+
+  @media (max-width: ${tabletSize}) {
+    display: none;
+  }
 `
 
 const End = styled.div`

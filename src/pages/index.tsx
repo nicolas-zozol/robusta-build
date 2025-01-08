@@ -36,7 +36,7 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
           <EmptyLine />
           <div>
             <EmptyLine size={2} />
-            <LinkedInCta />
+            <LinkedInCta center={false} />
             <EmptyLine size={2} />
           </div>
           <EmptyLine />

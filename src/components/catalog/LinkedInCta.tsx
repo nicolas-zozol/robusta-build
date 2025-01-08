@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Phone } from 'react-feather'
 
-const CtaContainer = styled.a`
+const CtaContainer = styled.a<{ $centerMargin: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,15 +32,18 @@ const CtaContainer = styled.a`
     margin-right: 10px;
   }
 
-  margin: 1rem auto;
+  margin: 1rem ${({ $centerMargin }) => $centerMargin};
 `
-
-export const LinkedInCta: React.FC = () => {
+interface LinkedInCtaProps {
+  center: boolean
+}
+export const LinkedInCta: React.FC<LinkedInCtaProps> = ({ center }) => {
   return (
     <CtaContainer
       href="https://www.linkedin.com/in/robustacode/"
       target="_blank"
       rel="noopener noreferrer"
+      $centerMargin={center ? 'auto' : '0'}
     >
       <Phone />
       Contact me on LinkedIn

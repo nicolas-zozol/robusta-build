@@ -56,7 +56,7 @@ export const About: FC<{}> = ({}) => (
 
       <div>
         <EmptyLine size={4} />
-        <LinkedInCta />
+        <LinkedInCta center={true} />
       </div>
 
       {/* Social proofs: linkedin, Github, Stack Overflow */}
