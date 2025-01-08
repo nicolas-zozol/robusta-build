@@ -3,6 +3,21 @@ import React from 'react'
 
 const GtmScript = () => {
   return (
+    <>
+
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZG8WF079T"></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-HZG8WF079T');
+      `,
+      }}></script>
+
+
     <script
       dangerouslySetInnerHTML={{
         __html: `
@@ -19,6 +34,7 @@ const GtmScript = () => {
         `,
       }}
     />
+    </>
   )
 }
 
