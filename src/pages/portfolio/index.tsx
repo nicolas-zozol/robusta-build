@@ -23,7 +23,7 @@ export default function PortfolioIndex() {
         <h1>Portfolio</h1>
         <PortfolioItem
           images={[swaapHome, swaapPortfolio, swaapVault]}
-          title={'Swaap Finance (2021-2024)'}
+          title={'Swaap Finance (2021-2024, web3)'}
         >
           <p>
             This web3 application for Swaap Finance allow users to deposit money
@@ -40,7 +40,7 @@ export default function PortfolioIndex() {
 
         <PortfolioItem
           images={[nautoEventDetails, nautoEventList]}
-          title={'Nauto AI (2021-2022)'}
+          title={'Nauto AI (2021-2022, React + d3.js)'}
         >
           <p>
             Nauto AI is a californian scale-up introducing real time sensors in
@@ -52,7 +52,7 @@ export default function PortfolioIndex() {
           </p>
         </PortfolioItem>
 
-        <PortfolioItem images={[diool]} title={'Diool (2019-2020)'}>
+        <PortfolioItem images={[diool]} title={'Diool (2019-2020, Angular)'}>
           <p>
             Diool is a mobile application in Cameroon that allows users to pay
             their bills with phone.
@@ -62,7 +62,10 @@ export default function PortfolioIndex() {
           </p>
         </PortfolioItem>
 
-        <PortfolioItem images={[bcgHome]} title={'BCG (2020)'}>
+        <PortfolioItem
+          images={[bcgHome]}
+          title={'Boston Consulting Group (2020, Java)'}
+        >
           <p>
             I had the luck to work with this huge American firm to deploy the
             new CMS. The work was technically not that hard (mainly basic Java
@@ -77,7 +80,7 @@ export default function PortfolioIndex() {
 
         <PortfolioItem
           images={[samHome, samDetails, samNewAccessRequest]}
-          title={'SAM (2019-2020)'}
+          title={'Renault SAM (2019-2020, CQRS/Event-Sourcing)'}
         >
           <p>
             SAM is a tool to simplify access to Renault’s internal tools. I
@@ -86,7 +89,10 @@ export default function PortfolioIndex() {
           </p>
         </PortfolioItem>
 
-        <PortfolioItem images={[eyeloDashboard]} title={'Eyelo (2015)'}>
+        <PortfolioItem
+          images={[eyeloDashboard]}
+          title={'Eyelo (2015, Angular)'}
+        >
           <p>
             Eye.lo is a tracker for telecoms. The application allow admin users
             to create customized dashboards for functional users – such as
@@ -95,7 +101,7 @@ export default function PortfolioIndex() {
           </p>
         </PortfolioItem>
 
-        <PortfolioItem images={[docdokuPlm]} title={'DocDoku (2013)'}>
+        <PortfolioItem images={[docdokuPlm]} title={'DocDoku (2013, Three.js)'}>
           <p>
             Docdoku PLM is a PLM software running on Ipad, transforming Catia
             data into Three.js structures. Very innovative, we were able to

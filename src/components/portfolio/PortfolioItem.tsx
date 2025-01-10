@@ -10,7 +10,7 @@ interface Props {
 
 export const PortfolioItem = ({ images, title, children }: Props) => {
   return (
-    <article className={'mt-40'}>
+    <Article className={'mt-40'}>
       {title && <h2>{title}</h2>}
 
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
@@ -32,9 +32,15 @@ export const PortfolioItem = ({ images, title, children }: Props) => {
 
       {/* Content (children) */}
       {children && <div style={{ marginTop: '1rem' }}>{children}</div>}
-    </article>
+    </Article>
   )
 }
+
+const Article = styled.article`
+  h2 {
+    margin-bottom: 1rem;
+  }
+`
 
 const Div = styled.div`
   height: 300px;
