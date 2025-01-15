@@ -27,7 +27,21 @@
     "react-router": "^6.26.2",
     "react-router-dom": "^6.26.2",
     "sass": "^1.38.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "prosemirror-state": "^1.4.3",
+    "prosemirror-model": "^1.24.1",
+    "prosemirror-view": "^1.37.1",
+    "prosemirror-transform": "^1.10.2",
+    "prosemirror-inputrules": "^1.0.0",
+    "prosemirror-schema-list": "^1.0.0",
+    "prosemirror-keymap": "^1.0.0",
+    "prosemirror-history": "^1.0.0",
+    "prosemirror-commands": "^1.6.2",
+    "prosemirror-menu": "^1.2.4",
+    "prosemirror-dropcursor": "^1.0.0",
+    "prosemirror-gapcursor": "^1.0.0",
+    "prosemirror-schema-basic": "^1.2.3",
+    "prosemirror-example-setup": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
