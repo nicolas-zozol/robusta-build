@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import 'prosemirror-view/style/prosemirror.css'
 import { createProseEditorWithColors } from './with-colors/create-prose-editor-with-colors'
 import { createSimpleProseEditor } from './create-simple-prose-editor'
+import { createProseEditorMinimal } from './minimal/create-prose-editor-minimal'
 
 export const SimpleProseMirrorEditor = () => {
   const editorRef = useRef(null)

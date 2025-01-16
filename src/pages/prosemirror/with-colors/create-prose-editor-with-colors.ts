@@ -13,8 +13,8 @@ export function createProseEditorWithColors(domElement: Element): ProseEditor {
   let state = EditorState.create({
     schema: schema,
     plugins: [
-      history(),
-      keymap({ 'Mod-z': undo, 'Mod-y': redo }),
+      //history(),
+      //keymap({ 'Mod-z': undo, 'Mod-y': redo }),
       keymap(baseKeymap),
     ],
   })
