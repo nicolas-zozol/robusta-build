@@ -20,6 +20,18 @@ const telegramNodes: Record<string, NodeSpec> = {
       },
     ],
   } as NodeSpec,
+  end: {
+    group: 'inline',
+    inline: true,
+    atom: true,
+    toDOM: () => ['strong', {}, 'END'],
+    parseDOM: [
+      {
+        tag: 'strong',
+        getAttrs: node => (node.textContent === 'END' ? {} : false),
+      },
+    ],
+  },
 }
 
 const telegramMarks: Record<string, MarkSpec> = {}
