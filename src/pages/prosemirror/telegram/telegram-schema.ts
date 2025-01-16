@@ -12,7 +12,7 @@ const telegramNodes: Record<string, NodeSpec> = {
     group: 'inline', // This makes it inline content
     inline: true, // Indicates it's an inline node
     atom: true, // Makes it a self-contained, indivisible unit
-    toDOM: () => ['em', {}, 'STOP'], // Rendered as <em>STOP</em>
+    toDOM: () => ['em', { class: 'stop' }, 'STOP'], // Rendered as <em>STOP</em>
     parseDOM: [
       {
         tag: 'em',
@@ -24,7 +24,7 @@ const telegramNodes: Record<string, NodeSpec> = {
     group: 'inline',
     inline: true,
     atom: true,
-    toDOM: () => ['strong', {}, 'END'],
+    toDOM: () => ['strong', { class: 'end' }, 'END'],
     parseDOM: [
       {
         tag: 'strong',
