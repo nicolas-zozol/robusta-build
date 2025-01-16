@@ -7,28 +7,20 @@ const autocompleteNodes: Record<string, NodeSpec> = {
   text: {
     group: 'inline',
   },
-  // STOP node represented as <em>STOP</em>
-  stop: {
-    group: 'inline', // This makes it inline content
-    inline: true, // Indicates it's an inline node
-    atom: true, // Makes it a self-contained, indivisible unit
-    toDOM: () => ['em', { class: 'stop' }, 'STOP'], // Rendered as <em>STOP</em>
-    parseDOM: [
-      {
-        tag: 'em',
-        getAttrs: node => (node.textContent === 'STOP' ? {} : false),
-      },
-    ],
-  } as NodeSpec,
-  end: {
-    group: 'inline',
+  people: {
     inline: true,
     atom: true,
-    toDOM: () => ['strong', { class: 'end' }, 'END'],
+    group: 'inline',
+    attrs: { name: { default: '' } },
+    toDOM: node => [
+      'span',
+      { class: 'mention', 'data-name': node.attrs.name },
+      `@${node.attrs.name}`,
+    ],
     parseDOM: [
       {
-        tag: 'strong',
-        getAttrs: node => (node.textContent === 'END' ? {} : false),
+        tag: 'span[data-name]',
+        getAttrs: dom => ({ name: dom.getAttribute('data-name') }),
       },
     ],
   },

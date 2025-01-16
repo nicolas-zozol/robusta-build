@@ -1,12 +1,9 @@
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import { dispatchBasicTransaction, ProseEditor } from '../prose-editor'
+import { ProseEditor } from '../prose-editor'
 import { autocompleteSchema } from './autocomplete-schema'
-import { autocompleteCommands } from './autocomplete-commands'
-import {
-  transformStopToEnd,
-  truncateAfterEndPlugin,
-} from './autocomplete-plugin'
+
+import { autocompleteCommands } from './autocomplete-plugin'
 import { dispatchAutocompleteTransaction } from './dispatch-autocomplete-transaction'
 
 export function createProseEditorAutocomplete(
@@ -14,7 +11,7 @@ export function createProseEditorAutocomplete(
 ): ProseEditor {
   let state = EditorState.create({
     schema: autocompleteSchema,
-    plugins: [autocompleteCommands, transformStopToEnd, truncateAfterEndPlugin],
+    plugins: [autocompleteCommands],
   })
 
   let view = new EditorView(domElement, {

@@ -1,66 +1,80 @@
-import { Plugin } from 'prosemirror-state'
+import { Command, EditorState, Plugin, Transaction } from 'prosemirror-state'
+import { keymap } from 'prosemirror-keymap'
+import { getFakeUsers } from './fake-data'
+import { EditorView } from 'prosemirror-view'
 
-export const transformStopToEnd = new Plugin({
-  appendTransaction(transactions, oldState, newState) {
-    let docChanged = transactions.some(tr => tr.docChanged)
-    if (!docChanged) return
+const doEnter: Command = (state: EditorState, dispatch) => {
+  console.log('enter pressed')
+  return true
+}
 
-    let { doc } = newState
-    let tr = newState.tr
-    let replaced = false
+// Keymap handler for the `@` character
+const handleAtKey: Command = (
+  state: EditorState,
+  dispatch?: (tr: Transaction) => void,
+  view?: EditorView
+) => {
+  if (!view) return false
 
-    doc.descendants((node, pos) => {
-      if (replaced) {
-        return false
-      }
-      if (node.type.name === 'stop') {
-        let nextNode = doc.nodeAt(pos + node.nodeSize)
-        if (nextNode && nextNode.type.name === 'stop') {
-          // Replace the two `STOP` nodes with an `END` node
-          let endNode = newState.schema.nodes.end.create()
-          // we assume the size of a stop node is 1
-          tr.replaceWith(pos, pos + 2, endNode)
-          replaced = true
-          return false // Stop further traversal
-        }
-      }
-    })
+  // Capture the current input context
+  const { $from } = state.selection
+  const matchString = '' // Start with an empty string or prefilled context
 
-    return replaced ? tr : null
-  },
+  // Show the autocomplete box
+  showAutocompleteBox(view, matchString).then(selectedName => {
+    selectedName && insertPeopleNode(view, selectedName)
+  })
+
+  return true // Indicate the key was handled
+}
+
+export const autocompleteCommands = keymap({
+  Enter: doEnter,
+  '@': handleAtKey,
 })
 
-export const truncateAfterEndPlugin = new Plugin({
-  appendTransaction(transactions, oldState, newState) {
-    let docChanged = transactions.some(tr => tr.docChanged)
-    if (!docChanged) return
+/* PLUGIN UI */
 
-    let { doc } = newState
-    let tr = newState.tr
-    let endFound = false
+type AutocompleteOptions = {
+  matchString: string
+  callback: (name: string) => void
+}
 
-    const docSize = doc.content.size
-    let endPosition: number | undefined = undefined
+// Function to show the autocomplete box
+async function showAutocompleteBox(
+  view: EditorView,
+  matchString: string
+  //callback: (name: string) => void
+): Promise<string | null> {
+  const users = await getFakeUsers(matchString) // Simulated server call
 
-    doc.descendants((node, pos, parent) => {
-      if (endFound) {
-        return false
-      }
+  console.log('Autocomplete users:', users)
 
-      if (node.type.name === 'end') {
-        if (!endFound) {
-          endPosition = pos
-        }
-        endFound = true // Mark that END is found
-        return false // Stop traversal
-      }
-    })
+  const rect = view.dom.getBoundingClientRect()
+  const cursorPos = view.coordsAtPos(view.state.selection.$from.pos)
 
-    // now deleting after the end
-    if (endFound && endPosition) {
-      tr.delete(endPosition + 1, docSize) // Remove content
-    }
+  // Simulate a dropdown box for the example
+  console.log('Showing autocomplete at:', {
+    x: cursorPos.left - rect.left,
+    y: cursorPos.top - rect.top,
+  })
 
-    return endFound ? tr : null
-  },
-})
+  console.log('Users fetched for autocomplete:', users)
+
+  // Call the callback with a user name (mocking user selection here)
+  if (users.length > 0) {
+    return users[0]
+  } else {
+    return null
+  }
+}
+
+// Function to handle inserting a PeopleNode
+function insertPeopleNode(view: EditorView, name: string): void {
+  const { state, dispatch } = view
+  const { schema } = state
+
+  const peopleNode = schema.nodes.people.create({ name })
+  const transaction = state.tr.replaceSelectionWith(peopleNode)
+  dispatch(transaction.scrollIntoView())
+}

@@ -23,20 +23,5 @@ export const ProseMirrorEditorAutocomplete = () => {
   )
 }
 
-const ProseAutocomplete = styled.div`
-  .end,
-  .stop {
-    margin: 0 3px;
-    padding: 2px 5px;
-    border-radius: 3px;
-    color: white;
-  }
-
-  .stop {
-    background-color: rgba(110, 150, 208, 0.71);
-  }
-
-  .end {
-    background-color: rgba(229, 60, 161, 0.41);
-  }
-`
+// Will handle most CSS styling of marks and nodes
+const ProseAutocomplete = styled.div``
