@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 import BasicLayout from '../layout/BasicLayout'
-import ClientOnly from './ClientOnly'
-import ProseMirrorEditor from './ProseMirrorEditor'
+import { ClientOnly } from './ClientOnly'
+import {
+  ProseMirrorEditorWithColors,
+  SimpleProseMirrorEditor,
+} from './ProseMirrorEditor'
+import { EmptyLine } from '../../components/catalog/EmptyLine'
 
 export default function Prose() {
   return (
@@ -11,7 +15,13 @@ export default function Prose() {
           <ClientOnly>
             <RootProse className={'blog-container'}>
               <h1>We Will reproduce ProseMirror Editor</h1>
-              <ProseMirrorEditor />
+              <SimpleProseMirrorEditor />
+            </RootProse>
+
+            <EmptyLine size={3} />
+            <RootProse className={'blog-container'}>
+              <h1>ProseMirror Editor with colors</h1>
+              <ProseMirrorEditorWithColors />
             </RootProse>
           </ClientOnly>
         </div>

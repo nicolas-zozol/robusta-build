@@ -3,7 +3,7 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 interface Props {
   children?: ReactNode
 }
-const ClientOnly: FC<Props> = ({ children }) => {
+export const ClientOnly: FC<Props> = ({ children }) => {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
@@ -14,5 +14,3 @@ const ClientOnly: FC<Props> = ({ children }) => {
 
   return <>{children}</>
 }
-
-export default ClientOnly

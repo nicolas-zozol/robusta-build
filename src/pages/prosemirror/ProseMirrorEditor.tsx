@@ -1,24 +1,14 @@
 import { useEffect, useRef } from 'react'
-import { EditorState } from 'prosemirror-state'
-import { EditorView } from 'prosemirror-view'
-import { Schema, DOMParser } from 'prosemirror-model'
-import { schema } from 'prosemirror-schema-basic'
-import { addListNodes } from 'prosemirror-schema-list'
-import { exampleSetup } from 'prosemirror-example-setup'
 import 'prosemirror-view/style/prosemirror.css'
+import { createProseEditorWithColors } from './with-colors/create-prose-editor-with-colors'
+import { createSimpleProseEditor } from './create-simple-prose-editor'
 
-const ProseMirrorEditor = () => {
+export const SimpleProseMirrorEditor = () => {
   const editorRef = useRef(null)
 
   useEffect(() => {
-    const view = new EditorView(editorRef.current, {
-      state: EditorState.create({
-        doc: DOMParser.fromSchema(schema).parse(
-          document.querySelector('#content')!
-        ),
-        plugins: exampleSetup({ schema }),
-      }),
-    })
+    const editorItem = document.querySelector('#editor')!
+    const { view, state } = createSimpleProseEditor(editorItem)
 
     return () => {
       view.destroy()
@@ -28,4 +18,19 @@ const ProseMirrorEditor = () => {
   return <div id="editor" ref={editorRef} className={'ProseMirror'}></div>
 }
 
-export default ProseMirrorEditor
+export const ProseMirrorEditorWithColors = () => {
+  const editorRef = useRef(null)
+
+  useEffect(() => {
+    const editorItem = document.querySelector('#editor2')!
+    const { view, state } = createProseEditorWithColors(editorItem)
+
+    return () => {
+      view.destroy()
+    }
+  }, [])
+
+  return (
+    <div id="editor2" ref={editorRef} className={'ProseMirror editor'}></div>
+  )
+}
