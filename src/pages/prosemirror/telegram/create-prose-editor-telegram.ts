@@ -3,19 +3,20 @@ import { EditorView } from 'prosemirror-view'
 import { dispatchBasicTransaction, ProseEditor } from '../prose-editor'
 import { telegramSchema } from './telegram-schema'
 import { telegramCommands } from './telegram-commands'
-import { transformStopToEnd } from './telegram-plugin'
+import { transformStopToEnd, truncateAfterEndPlugin } from './telegram-plugin'
+import { dispatchTelegramTransaction } from './dispatch-telegram-transaction'
 
 export function createProseEditorTelegram(domElement: Element): ProseEditor {
   let state = EditorState.create({
     schema: telegramSchema,
-    plugins: [telegramCommands, transformStopToEnd],
+    plugins: [telegramCommands, transformStopToEnd, truncateAfterEndPlugin],
   })
 
   let view = new EditorView(domElement, {
     state,
 
     dispatchTransaction: transaction => {
-      dispatchBasicTransaction(view, transaction)
+      dispatchTelegramTransaction(view, transaction)
     },
   })
   return { view, state }
