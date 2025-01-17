@@ -2,6 +2,7 @@ import { Command, EditorState, Plugin, Transaction } from 'prosemirror-state'
 import { keymap } from 'prosemirror-keymap'
 import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
+import AutocompleteBox from './autocomplete-ui'
 
 const doEnter: Command = (state: EditorState, dispatch) => {
   console.log('enter pressed')
@@ -46,27 +47,36 @@ async function showAutocompleteBox(
   matchString: string
   //callback: (name: string) => void
 ): Promise<string | null> {
-  const users = await getFakeUsers(matchString) // Simulated server call
-
-  console.log('Autocomplete users:', users)
-
   const rect = view.dom.getBoundingClientRect()
   const cursorPos = view.coordsAtPos(view.state.selection.$from.pos)
 
   // Simulate a dropdown box for the example
   console.log('Showing autocomplete at:', {
+    cursorPos,
     x: cursorPos.left - rect.left,
     y: cursorPos.top - rect.top,
   })
+  const x = cursorPos.left - rect.left
+  const y = cursorPos.top - rect.top
 
-  console.log('Users fetched for autocomplete:', users)
+  return new Promise<string>((resolve, reject) => {
+    const autocomplete = new AutocompleteBox({
+      container: view.dom.parentElement?.parentElement as HTMLElement,
+      fetch: getFakeUsers,
+      onSelect: item => {
+        console.log('Selected:', item)
+        //insertPeopleNode(view, item)
+        resolve(item)
+      },
+      onClose: () => {
+        console.log('Autocomplete box closed')
+        reject('Box closed')
+      },
+    })
 
-  // Call the callback with a user name (mocking user selection here)
-  if (users.length > 0) {
-    return users[0]
-  } else {
-    return null
-  }
+    autocomplete.setPosition(x + 30, y + 40) // Set to desired position
+    autocomplete.update('Ja')
+  })
 }
 
 // Function to handle inserting a PeopleNode

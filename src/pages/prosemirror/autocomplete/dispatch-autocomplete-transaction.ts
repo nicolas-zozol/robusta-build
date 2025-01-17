@@ -5,11 +5,12 @@ export function dispatchAutocompleteTransaction(
   view: EditorView,
   transaction: Transaction
 ) {
+  /*
   if (transaction.steps.length > 1) {
     console.log('Transaction update', transaction.steps[0].toJSON())
   } else {
     console.log('Transaction update', transaction)
-  }
+  }*/
 
   let newState = view.state.apply(transaction)
   view.updateState(newState)
