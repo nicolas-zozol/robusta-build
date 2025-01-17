@@ -29,7 +29,20 @@ const handleAtKey: Command = (
     schema.text('@')
   )
   if (dispatch) {
+    console.log('=== Asking to dispatch')
     dispatch(tr.insert(caretPosition, temporaryNode))
+    console.log('=== Dispatch asked')
+
+    setTimeout(() => {
+      console.log('temporaryNode inserted', {
+        pos: $from.pos,
+        caretPosition,
+        temporaryNode,
+        doc: state.doc,
+      })
+    }, 0)
+  } else {
+    console.log('### no dispatch')
   }
 
   // Show the autocomplete box
