@@ -7,6 +7,14 @@ const autocompleteNodes: Record<string, NodeSpec> = {
   text: {
     group: 'inline',
   },
+  temporaryPeople: {
+    group: 'inline',
+    inline: true,
+    atom: false, // Allow editing
+    content: 'text*',
+    toDOM: () => ['span', { class: 'temporary-people' }, 0],
+    parseDOM: [{ tag: 'span.temporary-people' }],
+  },
   people: {
     inline: true,
     atom: true,

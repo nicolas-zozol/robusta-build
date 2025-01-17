@@ -16,23 +16,23 @@ export const ProseMirrorEditorAutocomplete = () => {
   }, [])
 
   return (
-    <RootProse ref={parentRef}>
+    <RootAutocomplete ref={parentRef} className={'root_autocomplete'}>
       <ProseAutocomplete
         id="editor-autocomplete"
         ref={editorRef}
         className={'ProseMirror editor'}
       ></ProseAutocomplete>
-    </RootProse>
+    </RootAutocomplete>
   )
 }
 
-const RootProse = styled.div`
+const RootAutocomplete = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   padding: 10px;
 
-  &.autocomplete-root {
+  .autocomplete-root {
     position: relative;
     border: 3px solid red;
   }
@@ -47,12 +47,12 @@ const RootProse = styled.div`
     overflow-y: auto;
   }
 
-  .autocomplete-item {
+  .suggestion-item {
     padding: 8px;
     cursor: pointer;
   }
 
-  .autocomplete-item.active {
+  .suggestion-item.active {
     background-color: #007bff;
     color: white;
   }

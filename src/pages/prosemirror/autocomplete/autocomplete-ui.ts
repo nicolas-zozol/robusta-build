@@ -1,108 +1,74 @@
 interface AutocompleteBoxOptions {
   container: HTMLElement // The parent `position: relative` container
-  fetch: (matchString: string) => Promise<string[]> // Fetch logic for autocomplete suggestions
+  fetch: (matchString: string) => Promise<string[]> // Fetch logic for autocomplete items
   onSelect: (selectedItem: string) => void // Callback when an item is selected
-  onClose?: () => void // Optional callback when the box is dismissed
+  onClose: () => void // Optional callback when the box is dismissed
 }
 
-class AutocompleteBox {
+export class AutocompleteBox {
   private container: HTMLElement
-  private fetchSuggestions: (matchString: string) => Promise<string[]>
-  private onSelect: (selectedItem: string) => void
-  private onClose?: () => void
-
-  private boxElement: HTMLDivElement | null = null
+  private readonly fetch: (matchString: string) => Promise<string[]>
+  public onSelect: (selectedItem: string) => void
+  public onClose: () => void
+  private box: HTMLDivElement
   private items: string[] = []
   private activeIndex: number = -1 // For keyboard navigation
 
   constructor(options: AutocompleteBoxOptions) {
-    this.container = options.container
-    this.fetchSuggestions = options.fetch
-    this.onSelect = options.onSelect
-    this.onClose = options.onClose
+    const { container, fetch, onSelect, onClose } = options
+    this.container = container
+    this.fetch = fetch
+    this.onSelect = onSelect
+    this.onClose = onClose
 
-    this.initBox()
+    this.box = this.initBox()
   }
 
-  // Initializes the visual box
-  private initBox(): void {
-    console.log('Initializing autocomplete box', this.container)
-
-    this.container.className = this.container.className + ' autocomplete-root'
-
-    this.boxElement = document.createElement('div')
-    this.boxElement.className = 'autocomplete-box'
-    this.boxElement.style.position = 'absolute'
-    this.boxElement.style.visibility = 'hidden' // Hide initially
-    this.boxElement.style.zIndex = '1000' // Ensure it's above other elements
-
-    const testElement = document.createElement('div')
-    testElement.textContent = 'test'
-
-    this.boxElement.appendChild(testElement) // Placeholder for items
-    this.container.appendChild(this.boxElement)
-
-    this.boxElement.addEventListener('click', event => {
-      const target = event.target as HTMLElement
-      const index = target.getAttribute('data-index')
-      if (index !== null) {
-        this.selectItem(Number(index))
-      }
-    })
-
-    setTimeout(() => {
-      console.log('Autocomplete box initialized', this.container)
-    }, 500)
+  /**
+   * Sets the position of the autocomplete box relative to its container.
+   * @param x - The x-coordinate.
+   * @param y - The y-coordinate.
+   */
+  setPosition(x: number, y: number): void {
+    this.box.style.left = `${x}px`
+    this.box.style.top = `${y}px`
+    this.box.style.position = 'absolute'
   }
 
-  // Updates the box position
-  public setPosition(x: number, y: number): void {
-    if (!this.boxElement) return
-    this.boxElement.style.left = `${x}px`
-    this.boxElement.style.top = `${y}px`
-  }
-
-  // Triggers fetching and updates the box
-  public async update(matchString: string): Promise<void> {
-    if (!this.boxElement) return
-
-    // Fetch suggestions
-    this.items = await this.fetchSuggestions(matchString)
-    this.activeIndex = -1 // Reset active index
+  /**
+   * Updates the items in the autocomplete box based on the input.
+   * @param input - The input string to fetch items for.
+   */
+  async update(input: string): Promise<void> {
+    this.items = await this.fetch(input)
     this.render()
-    console.log('Autocomplete updated with items:', this.items)
   }
 
-  // Renders the items in the box
-  private render(): void {
-    if (!this.boxElement) return
-
-    this.boxElement.innerHTML = '' // Clear previous content
-
-    if (this.items.length === 0) {
-      //this.boxElement.style.display = 'none'
-      this.boxElement.style.visibility = 'hidden'
-      return
-    }
-
-    //this.boxElement.style.display = 'block'
-    this.boxElement.style.visibility = 'visible'
+  private initBox(): HTMLDivElement {
     this.activeIndex = 0
+    const box = document.createElement('div')
+    box.className = 'autocomplete-box'
+    this.container.appendChild(box)
+    this.container.classList.add('autocomplete-root')
+
+    return box
+  }
+
+  /**
+   * Renders the items in the autocomplete box.
+   */
+  private render(): void {
+    this.box.innerHTML = ''
     const htmlItems: HTMLDivElement[] = []
 
     this.items.forEach((item, index) => {
-      const itemElement = document.createElement('div')
-      itemElement.className = 'autocomplete-item'
-      itemElement.textContent = item
-      itemElement.setAttribute('data-index', index.toString())
-
-      // Highlight active item
-      if (index === this.activeIndex) {
-        itemElement.classList.add('active')
-      }
-
-      this.boxElement?.appendChild(itemElement)
-      htmlItems.push(itemElement)
+      const suggestionItem = document.createElement('div')
+      suggestionItem.setAttribute('data-index', index.toString())
+      suggestionItem.className = 'suggestion-item'
+      suggestionItem.textContent = item
+      suggestionItem.addEventListener('click', () => this.onSelect(item))
+      this.box.appendChild(suggestionItem)
+      htmlItems.push(suggestionItem)
     })
 
     // setting htmlItem active on hovering
@@ -119,6 +85,18 @@ class AutocompleteBox {
         })
       })
     })
+    this.items = this.items
+  }
+
+  /**
+   * Closes the autocomplete box and triggers the onClose callback if provided.
+   */
+  close(): void {
+    this.box.remove()
+    if (this.onClose) {
+      this.onClose()
+    }
+    this.container.classList.remove('autocomplete-root')
   }
 
   // Selects an item programmatically
@@ -132,7 +110,7 @@ class AutocompleteBox {
 
   // Handles keyboard navigation
   public handleKeyDown(event: KeyboardEvent): void {
-    if (!this.boxElement || this.items.length === 0) return
+    if (!this.box || this.items.length === 0) return
 
     switch (event.key) {
       case 'ArrowDown':
@@ -154,24 +132,4 @@ class AutocompleteBox {
         break
     }
   }
-
-  // Closes the box
-  public close(): void {
-    if (this.boxElement) {
-      this.boxElement.style.display = 'none'
-    }
-    if (this.onClose) {
-      this.onClose()
-    }
-  }
-
-  // Cleans up DOM and event listeners
-  public destroy(): void {
-    if (this.boxElement) {
-      this.boxElement.remove()
-      this.boxElement = null
-    }
-  }
 }
-
-export default AutocompleteBox

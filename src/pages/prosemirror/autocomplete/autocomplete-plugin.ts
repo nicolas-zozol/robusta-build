@@ -1,8 +1,8 @@
-import { Command, EditorState, Plugin, Transaction } from 'prosemirror-state'
+import { Command, EditorState, Transaction } from 'prosemirror-state'
 import { keymap } from 'prosemirror-keymap'
 import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
-import AutocompleteBox from './autocomplete-ui'
+import { AutocompleteBox } from './autocomplete-ui'
 
 const doEnter: Command = (state: EditorState, dispatch) => {
   console.log('enter pressed')
@@ -17,14 +17,49 @@ const handleAtKey: Command = (
 ) => {
   if (!view) return false
 
-  // Capture the current input context
+  const { schema, tr } = state
+
+  // Get the caret position
   const { $from } = state.selection
-  const matchString = '' // Start with an empty string or prefilled context
+  const caretPosition = $from.pos
+
+  // Create a temporary node with an empty string as content
+  const temporaryNode = schema.nodes.temporaryPeople.create(
+    {},
+    schema.text('@')
+  )
+  if (dispatch) {
+    dispatch(tr.insert(caretPosition, temporaryNode))
+  }
 
   // Show the autocomplete box
-  showAutocompleteBox(view, matchString).then(selectedName => {
-    selectedName && insertPeopleNode(view, selectedName)
-  })
+  const matchString = ''
+  const autocomplete = showAutocompleteBox(view, matchString)
+
+  // Handle selection of a person
+  autocomplete.onSelect = item => {
+    insertPeopleNode(view, item) // Replace temporaryNode with the selected person node
+  }
+
+  // Handle cancellation
+  autocomplete.onClose = () => {
+    if (dispatch) {
+      // Replace the temporaryNode with plain text containing the match string
+      const matchText = schema.text(
+        view.state.doc.textBetween(
+          caretPosition,
+          caretPosition + temporaryNode.nodeSize
+        )
+      )
+      dispatch(
+        tr.replaceWith(
+          caretPosition,
+          caretPosition + temporaryNode.nodeSize,
+          matchText
+        )
+      )
+    }
+  }
 
   return true // Indicate the key was handled
 }
@@ -34,49 +69,37 @@ export const autocompleteCommands = keymap({
   '@': handleAtKey,
 })
 
-/* PLUGIN UI */
-
-type AutocompleteOptions = {
-  matchString: string
-  callback: (name: string) => void
-}
-
 // Function to show the autocomplete box
-async function showAutocompleteBox(
+function showAutocompleteBox(
   view: EditorView,
   matchString: string
-  //callback: (name: string) => void
-): Promise<string | null> {
+): AutocompleteBox {
   const rect = view.dom.getBoundingClientRect()
   const cursorPos = view.coordsAtPos(view.state.selection.$from.pos)
 
-  // Simulate a dropdown box for the example
-  console.log('Showing autocomplete at:', {
-    cursorPos,
-    x: cursorPos.left - rect.left,
-    y: cursorPos.top - rect.top,
-  })
   const x = cursorPos.left - rect.left
   const y = cursorPos.top - rect.top
 
-  return new Promise<string>((resolve, reject) => {
-    const autocomplete = new AutocompleteBox({
-      container: view.dom.parentElement?.parentElement as HTMLElement,
-      fetch: getFakeUsers,
-      onSelect: item => {
-        console.log('Selected:', item)
-        //insertPeopleNode(view, item)
-        resolve(item)
-      },
-      onClose: () => {
-        console.log('Autocomplete box closed')
-        reject('Box closed')
-      },
+  const autocomplete = new AutocompleteBox({
+    container: view.dom.parentElement as HTMLElement,
+    fetch: getFakeUsers,
+    onSelect: item => {
+      console.log('Selected:', item)
+      insertPeopleNode(view, item) // Insert the selected person node
+    },
+    onClose: () => {
+      console.log('Autocomplete box closed')
+    },
+  })
+
+  autocomplete.setPosition(x + 30, y + 40) // Adjust position
+  autocomplete
+    .update(matchString) // Initialize with the current match string
+    .catch(error => {
+      console.error('Error fetching autocomplete items:', error)
     })
 
-    autocomplete.setPosition(x + 30, y + 40) // Set to desired position
-    autocomplete.update('Ja')
-  })
+  return autocomplete // Return the instance for external updates
 }
 
 // Function to handle inserting a PeopleNode
