@@ -18,7 +18,7 @@ export function dispatchAutocompleteTransaction(
     console.log(jsonDoc)
   }, 0)
 
-  const writingIntoTempPeople = detectWritingIntoTempPeople(newState)
+  const writingIntoTempPeople = detectWritingIntoTempPeople(initialState)
 
   if (writingIntoTempPeople) {
     const tempNode = findTempPeopleNode(newState)
@@ -35,13 +35,36 @@ export function dispatchAutocompleteTransaction(
   }
 }
 
-// Helper to detect if we are in "writing into tempPeople" mode
+/**
+ * Helper to detect if we are in "writing into tempPeople" mode
+ */
 function detectWritingIntoTempPeople(state: EditorState): boolean {
-  const { doc, selection } = state
-  const { $from } = selection
-  const nodeAtCursor = doc.nodeAt($from.pos)
-  console.log({ nodeAtCursor, pos: $from.pos })
-  return nodeAtCursor?.type.name === 'temporaryPeople'
+  const json = state.doc.toJSON()
+  let containsTempPeople = false
+  if (json && json.content) {
+    containsTempPeople = json.content.some(
+      (node: any) => node.type === 'temporaryPeople'
+    )
+  }
+  return containsTempPeople
+}
+
+function findNodePosition(
+  state: EditorState,
+  nodeName: string
+): number | undefined {
+  const json = state.doc.toJSON()
+  let position: number | undefined = undefined
+  if (json && json.content) {
+    json.content.forEach((node: any, index: number) => {
+      if (node.type === nodeName) {
+        position = index
+        console.log(`Found node ${nodeName} at position`, position)
+        return position
+      }
+    })
+  }
+  return position
 }
 
 // Helper to find the temporaryPeople node
