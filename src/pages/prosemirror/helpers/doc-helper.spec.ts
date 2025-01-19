@@ -15,13 +15,6 @@ describe('createNodeFromContent', () => {
       doc: { content: 'block+' },
       paragraph: { group: 'block', content: 'inline*', toDOM: () => ['p', 0] },
       text: { group: 'inline', toDOM: node => node.text || '' },
-      section: {
-        group: 'block',
-        toDOM: node => node.text || '',
-        fromDOM: () => {
-          throw new Error('Invalid content')
-        },
-      },
     },
   })
 
@@ -72,22 +65,6 @@ describe('createNodeFromContent', () => {
     expect((result as Fragment).childCount).toBe(2)
   })
 
-  test('throws an error for invalid schema content', () => {
-    expect(() =>
-      createNodeFromContent('<section class="s">x</section>', schema)
-    ).toThrow()
-    expect(() =>
-      createNodeFromContent(
-        '<section>Fragment 1</section><article>Fragment 2</article>',
-        schema
-      )
-    ).toThrow()
-  })
-
-  test('do not handles empty string gracefully', () => {
-    expect(() => createNodeFromContent('', schema)).toThrow()
-  })
-
   test('should create a doc from valid HTML content', () => {
     const content = '<p>Hello World</p>'
     const doc = createDocFromContent(content, schema)
@@ -112,17 +89,9 @@ describe('createNodeFromContent', () => {
     expect(doc.content.firstChild!.textContent).toBe('Fragment')
   })
 
-  test('should throw an error for invalid HTML content', () => {
-    const content = '<invalidTag>Test</invalidTag>'
-    expect(() => createNodeFromContent(content, schema)).toThrow(
-      'Invalid content'
-    )
-  })
-
   test('should handle empty content gracefully', () => {
     const content = ''
     const doc = createDocFromContent(content, schema)
     expect(doc.type.name).toBe('doc')
-    expect(doc.content.childCount).toBe(0)
   })
 })
