@@ -1,7 +1,21 @@
 import { EditorState, Selection } from 'prosemirror-state'
-import { Predicate } from './types'
+import { NodeWithPos, Predicate } from './types'
 import { ResolvedPos, Node } from 'prosemirror-model'
 
+export function findNodeByName(
+  state: EditorState,
+  type: string
+): NodeWithPos | null {
+  let found: NodeWithPos | null = null
+  state.doc.descendants((child, pos) => {
+    if (child.type.name === type && !found) {
+      found = { node: child, pos }
+      return
+    }
+  })
+
+  return found
+}
 export const isAtStartOfNode = (state: EditorState) => {
   const { $from, $to } = state.selection
 

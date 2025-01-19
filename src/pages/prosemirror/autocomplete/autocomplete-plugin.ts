@@ -1,4 +1,9 @@
-import { Command, EditorState, Transaction } from 'prosemirror-state'
+import {
+  Command,
+  EditorState,
+  TextSelection,
+  Transaction,
+} from 'prosemirror-state'
 import { keymap } from 'prosemirror-keymap'
 import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
@@ -29,20 +34,19 @@ const handleAtKey: Command = (
     schema.text('@')
   )
   if (dispatch) {
-    console.log('=== Asking to dispatch')
-    dispatch(tr.insert(caretPosition, temporaryNode))
-    console.log('=== Dispatch asked')
+    tr.insert(caretPosition, temporaryNode)
+    const endPosition = caretPosition + 2
+    tr.setSelection(TextSelection.create(tr.doc, endPosition))
 
-    setTimeout(() => {
-      console.log('temporaryNode inserted', {
-        pos: $from.pos,
-        caretPosition,
-        temporaryNode,
-        doc: state.doc,
-      })
-    }, 0)
+    console.log('### inserting', {
+      caretPosition,
+      temporaryNodeSize: temporaryNode.nodeSize,
+      endPosition,
+    })
+
+    dispatch(tr)
   } else {
-    console.log('### no dispatch')
+    //console.log('### no dispatch')
   }
 
   // Show the autocomplete box

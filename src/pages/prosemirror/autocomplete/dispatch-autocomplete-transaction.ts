@@ -1,37 +1,36 @@
 import { EditorView } from 'prosemirror-view'
 import { EditorState, Transaction } from 'prosemirror-state'
 import { Node } from 'prosemirror-model'
+import { getAutocompleteBox } from './autocomplete-ui'
+import { findNodeByName } from '../helpers/state-helper'
+import { NodeWithPos } from '../helpers/types'
 
 export function dispatchAutocompleteTransaction(
   view: EditorView,
   transaction: Transaction
 ) {
-  console.log('===  dispatchAutocompleteTransaction')
   const {} = transaction
   const initialState = view.state
   let newState = view.state.apply(transaction)
   view.updateState(newState)
 
-  setTimeout(() => {
-    console.log('===  looking at dispatchAutocompleteTransaction')
-    const jsonDoc = view.state.doc.toJSON()
-    console.log(jsonDoc)
-  }, 0)
-
   const writingIntoTempPeople = detectWritingIntoTempPeople(initialState)
 
-  if (writingIntoTempPeople) {
-    const tempNode = findTempPeopleNode(newState)
-    if (tempNode) {
-      console.log({
-        tempNode,
-        matchString: extractMatchString(newState),
-        textContent: tempNode.textContent,
-        tempNodeSize: tempNode.nodeSize,
-      })
-    }
+  const box = getAutocompleteBox()
+  const tempNode = findTempPeopleNode(newState)
+
+  if (writingIntoTempPeople && box && tempNode) {
+    const node = tempNode.node
+    const content = node.textContent || ''
+    const matchString = extractMatchString(newState)
+    console.log('## matchstring ?', {
+      content,
+      matchString,
+      tempNodeSize: node.nodeSize,
+    })
+    box.update(matchString).catch(console.error)
   } else {
-    console.log('Not writing into tempPeople')
+    //console.log('Not writing into tempPeople')
   }
 }
 
@@ -68,16 +67,16 @@ function findNodePosition(
 }
 
 // Helper to find the temporaryPeople node
-function findTempPeopleNode(state: EditorState): Node | null {
-  const { doc, selection } = state
-  const { $from } = selection
-  return doc.nodeAt($from.pos)
+function findTempPeopleNode(state: EditorState): NodeWithPos | null {
+  return findNodeByName(state, 'temporaryPeople')
 }
 
 // Helper to extract the match string (text without @ symbol)
 function extractMatchString(state: EditorState): string {
-  const { doc, selection } = state
-  const { $from } = selection
-  const nodeAtCursor = doc.nodeAt($from.pos)
-  return nodeAtCursor?.textContent?.substring(1) || ''
+  const node = findTempPeopleNode(state)
+  if (!node) {
+    return ''
+  }
+
+  return node.node.textContent?.substring(1) || ''
 }

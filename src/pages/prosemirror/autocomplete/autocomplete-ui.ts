@@ -5,6 +5,20 @@ interface AutocompleteBoxOptions {
   onClose: () => void // Optional callback when the box is dismissed
 }
 
+let singleton: AutocompleteBox | undefined = undefined
+
+export function getAutocompleteBox(): AutocompleteBox | undefined {
+  return singleton
+}
+
+export function setAutocompleteBox(box: AutocompleteBox) {
+  singleton = box
+}
+
+export function resetAutocompleteBox() {
+  singleton = undefined
+}
+
 export class AutocompleteBox {
   private container: HTMLElement
   private readonly fetch: (matchString: string) => Promise<string[]>
@@ -51,6 +65,7 @@ export class AutocompleteBox {
     this.container.appendChild(box)
     this.container.classList.add('autocomplete-root')
 
+    setAutocompleteBox(this)
     return box
   }
 
@@ -85,7 +100,6 @@ export class AutocompleteBox {
         })
       })
     })
-    this.items = this.items
   }
 
   /**
@@ -97,6 +111,7 @@ export class AutocompleteBox {
       this.onClose()
     }
     this.container.classList.remove('autocomplete-root')
+    resetAutocompleteBox()
   }
 
   // Selects an item programmatically
