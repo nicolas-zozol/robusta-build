@@ -1,5 +1,10 @@
 import { describe, expect, test } from '@jest/globals'
-import { createNodeFromContent, stringToDOMNode, wrapAsDoc } from './doc-helper'
+import {
+  createDocFromContent,
+  createNodeFromContent,
+  stringToDOMNode,
+  wrapAsDoc,
+} from './doc-helper'
 import { DOMParser, Fragment, Schema, Node } from 'prosemirror-model'
 import { fragmentToHtml, nodeToHtml } from './node-helper'
 
@@ -7,9 +12,16 @@ describe('createNodeFromContent', () => {
   // Sample schema for testing
   const schema = new Schema({
     nodes: {
-      doc: { content: 'block*' },
+      doc: { content: 'block+' },
       paragraph: { group: 'block', content: 'inline*', toDOM: () => ['p', 0] },
       text: { group: 'inline', toDOM: node => node.text || '' },
+      section: {
+        group: 'block',
+        toDOM: node => node.text || '',
+        fromDOM: () => {
+          throw new Error('Invalid content')
+        },
+      },
     },
   })
 
@@ -50,35 +62,67 @@ describe('createNodeFromContent', () => {
     expect(result).toBe(fragment)
   })
 
-  /*
   test('parses a valid HTML string into a Node', () => {
     const result = createNodeFromContent('<p>Test</p>', schema)
-    expect((result as Node).type.name).toBe('doc')
-    expect((result as Node).childCount).toBe(1)
-    expect((result as Node).firstChild?.type.name).toBe('paragraph')
+    expect((result as Node).type.name).toBe('paragraph')
   })
 
   test('parses an HTML string with multiple nodes', () => {
     const result = createNodeFromContent('<p>First</p><p>Second</p>', schema)
-    expect((result as Node).type.name).toBe('doc')
-    expect((result as Node).childCount).toBe(2)
-    expect((result as Node).firstChild?.textContent).toBe('First')
-    expect((result as Node).lastChild?.textContent).toBe('Second')
+    expect((result as Fragment).childCount).toBe(2)
   })
 
   test('throws an error for invalid schema content', () => {
-    expect(() => createNodeFromContent('<invalid>', schema)).toThrow()
+    expect(() =>
+      createNodeFromContent('<section class="s">x</section>', schema)
+    ).toThrow()
+    expect(() =>
+      createNodeFromContent(
+        '<section>Fragment 1</section><article>Fragment 2</article>',
+        schema
+      )
+    ).toThrow()
   })
 
-  test('handles empty string gracefully', () => {
-    const result = createNodeFromContent('', schema)
-    expect((result as Node).type.name).toBe('doc')
-    expect((result as Node).childCount).toBe(0)
+  test('do not handles empty string gracefully', () => {
+    expect(() => createNodeFromContent('', schema)).toThrow()
   })
 
-  test('handles whitespace-only string gracefully', () => {
-    const result = createNodeFromContent('   ', schema)
-    expect((result as Node).type.name).toBe('doc')
-    expect((result as Node).childCount).toBe(0)
-  })*/
+  test('should create a doc from valid HTML content', () => {
+    const content = '<p>Hello World</p>'
+    const doc = createDocFromContent(content, schema)
+    expect(doc.type.name).toBe('doc')
+    expect(doc.content.childCount).toBe(1)
+    expect(doc.content.firstChild?.type.name).toBe('paragraph')
+  })
+
+  test('should create a doc from a Node instance', () => {
+    const paragraphNode = schema.node('paragraph', null, schema.text('Test'))
+    const doc = createDocFromContent(paragraphNode, schema)
+    expect(doc.type.name).toBe('doc')
+    expect(doc.content.firstChild?.textContent).toBe('Test')
+  })
+
+  test('should create a doc from a Fragment instance', () => {
+    const fragment = Fragment.from(
+      schema.node('paragraph', null, schema.text('Fragment'))
+    )
+    const doc = createDocFromContent(fragment, schema)
+    expect(doc.type.name).toBe('doc')
+    expect(doc.content.firstChild!.textContent).toBe('Fragment')
+  })
+
+  test('should throw an error for invalid HTML content', () => {
+    const content = '<invalidTag>Test</invalidTag>'
+    expect(() => createNodeFromContent(content, schema)).toThrow(
+      'Invalid content'
+    )
+  })
+
+  test('should handle empty content gracefully', () => {
+    const content = ''
+    const doc = createDocFromContent(content, schema)
+    expect(doc.type.name).toBe('doc')
+    expect(doc.content.childCount).toBe(0)
+  })
 })
