@@ -19,6 +19,15 @@ export function resetAutocompleteBox() {
   singleton = undefined
 }
 
+interface ActiveItem {
+  found:
+    | boolean
+    | {
+        index: number
+        item: string
+      }
+}
+
 export class AutocompleteBox {
   private container: HTMLElement
   private readonly fetch: (matchString: string) => Promise<string[]>
@@ -26,7 +35,9 @@ export class AutocompleteBox {
   public onClose: () => void
   private box: HTMLDivElement
   private items: string[] = []
+  htmlItems: HTMLDivElement[] = []
   private activeIndex: number = -1 // For keyboard navigation
+  private lastActiveItem: string | undefined = undefined
 
   constructor(options: AutocompleteBoxOptions) {
     const { container, fetch, onSelect, onClose } = options
@@ -53,9 +64,10 @@ export class AutocompleteBox {
    * Updates the items in the autocomplete box based on the input.
    * @param input - The input string to fetch items for.
    */
-  async update(input: string): Promise<void> {
+  async update(input: string): Promise<ActiveItem> {
     this.items = await this.fetch(input)
     this.render()
+    return this.updateActive(input)
   }
 
   private initBox(): HTMLDivElement {
@@ -74,8 +86,7 @@ export class AutocompleteBox {
    */
   private render(): void {
     this.box.innerHTML = ''
-    const htmlItems: HTMLDivElement[] = []
-
+    this.htmlItems = []
     this.items.forEach((item, index) => {
       const suggestionItem = document.createElement('div')
       suggestionItem.setAttribute('data-index', index.toString())
@@ -83,33 +94,72 @@ export class AutocompleteBox {
       suggestionItem.textContent = item
       suggestionItem.addEventListener('click', () => this.onSelect(item))
       this.box.appendChild(suggestionItem)
-      htmlItems.push(suggestionItem)
+      this.htmlItems.push(suggestionItem)
     })
 
     // setting htmlItem active on hovering
-    htmlItems.forEach((item, index) => {
+    this.htmlItems.forEach((item, index) => {
       item.addEventListener('mouseover', () => {
         const itemIndex = Number(item.getAttribute('data-index') || '0')
         item.classList.add('active')
-        this.activeIndex = index
-        // setting other inactive
-        htmlItems.forEach((i, idx) => {
-          if (idx !== itemIndex) {
-            i.classList.remove('active')
-          }
-        })
+        this.setActiveIndex(itemIndex)
       })
     })
+  }
+
+  private updateActive(matchString: string): ActiveItem {
+    let newActiveIndex = 0
+    const continueOnTheSameGuy =
+      this.lastActiveItem &&
+      this.lastActiveItem.toLowerCase().startsWith(matchString.toLowerCase())
+
+    if (continueOnTheSameGuy) {
+      newActiveIndex = this.items.indexOf(this.lastActiveItem!)
+    }
+    return this.setActiveIndex(newActiveIndex)
+  }
+
+  private setActiveIndex(index: number): ActiveItem {
+    this.activeIndex = index
+    if (this.htmlItems[this.activeIndex]) {
+      this.htmlItems[this.activeIndex].classList.add('active')
+      this.lastActiveItem = this.items[this.activeIndex]
+      this.htmlItems.forEach((i, idx) => {
+        if (idx !== this.activeIndex) {
+          i.classList.remove('active')
+        }
+      })
+      return {
+        found: {
+          index: this.activeIndex,
+          item: this.items[this.activeIndex],
+        },
+      }
+    } else {
+      this.activeIndex = -1
+      this.lastActiveItem = undefined
+      // this.exit() // handled by the caller
+      return {
+        found: false,
+      }
+    }
   }
 
   /**
    * Closes the autocomplete box and triggers the onClose callback if provided.
    */
   close(): void {
-    this.box.remove()
     if (this.onClose) {
       this.onClose()
     }
+    this.exit() // should replace
+  }
+
+  // close without triggering selection
+  exit(): void {
+    this.box.remove()
+    this.htmlItems.forEach(item => item.remove())
+
     this.container.classList.remove('autocomplete-root')
     resetAutocompleteBox()
   }

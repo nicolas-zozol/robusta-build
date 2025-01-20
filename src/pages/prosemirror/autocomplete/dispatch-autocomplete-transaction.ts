@@ -5,6 +5,13 @@ import { getAutocompleteBox } from './autocomplete-ui'
 import { findNodeByName } from '../helpers/state-helper'
 import { NodeWithPos } from '../helpers/types'
 
+/**
+ * This function is responsible for handling the autocomplete box when the user types
+ * regular text into the editor.
+ * @param view
+ * @param transaction
+ */
+
 export function dispatchAutocompleteTransaction(
   view: EditorView,
   transaction: Transaction
@@ -20,18 +27,38 @@ export function dispatchAutocompleteTransaction(
   const tempNode = findTempPeopleNode(newState)
 
   if (writingIntoTempPeople && box && tempNode) {
-    const node = tempNode.node
-    const content = node.textContent || ''
     const matchString = extractMatchString(newState)
-    console.log('## matchstring ?', {
-      content,
-      matchString,
-      tempNodeSize: node.nodeSize,
-    })
-    box.update(matchString).catch(console.error)
+
+    box
+      .update(matchString)
+      .then(active => {
+        if (active.found) {
+          console.log('## active', active.found)
+        } else {
+          console.log('## not active, text replacing')
+          // box exited, replace the temporary node by the matchString
+          box.exit()
+          const { pos, node } = tempNode
+          newState = replaceNodeByText(newState, node, pos, matchString)
+          view.updateState(newState)
+        }
+      })
+      .catch(console.error)
   } else {
     //console.log('Not writing into tempPeople')
   }
+}
+
+function replaceNodeByText(
+  state: EditorState,
+  node: Node,
+  pos: number,
+  text: string
+): EditorState {
+  const { tr, schema } = state
+  const nodeSize = node.nodeSize
+  tr.replaceWith(pos, pos + nodeSize, schema.text(text))
+  return state.apply(tr)
 }
 
 /**

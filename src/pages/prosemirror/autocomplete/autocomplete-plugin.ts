@@ -9,6 +9,18 @@ import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
 import { AutocompleteBox } from './autocomplete-ui'
 
+/**
+ * This file handle the special keys and commands for the autocomplete feature.
+ * It is responsible for handling the `@`, '#', '<>', 'Up & Down', 'Escape', and the Enter key.
+ *
+ * However, other keys also interact with the autocomplete box, by updating the content of the box
+ * or even exiting it when no content is available.
+ * This is done in the dispatchAutocompleteTransaction function.
+ *
+ * @param state
+ * @param dispatch
+ */
+
 const doEnter: Command = (state: EditorState, dispatch) => {
   console.log('enter pressed')
   return true
