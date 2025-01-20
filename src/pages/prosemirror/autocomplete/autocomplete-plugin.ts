@@ -7,7 +7,7 @@ import {
 import { keymap } from 'prosemirror-keymap'
 import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
-import { AutocompleteBox } from './autocomplete-ui'
+import { AutocompleteBox, isBoxOpened, MODE } from './autocomplete-ui'
 
 /**
  * This file handle the special keys and commands for the autocomplete feature.
@@ -33,12 +33,15 @@ const handleAtKey: Command = (
   view?: EditorView
 ) => {
   if (!view) return false
-
   const { schema, tr } = state
 
   // Get the caret position
   const { $from } = state.selection
   const caretPosition = $from.pos
+
+  if (isBoxOpened() && dispatch) {
+    return insertAndUpdateText(view, '@')
+  }
 
   // Create a temporary node with an empty string as content
   const temporaryNode = schema.nodes.temporaryPeople.create(
@@ -63,7 +66,7 @@ const handleAtKey: Command = (
 
   // Show the autocomplete box
   const matchString = ''
-  const autocomplete = showAutocompleteBox(view, matchString)
+  const autocomplete = showAutocompleteBox('PEOPLE', view, matchString)
 
   // Handle selection of a person
   autocomplete.onSelect = item => {
@@ -100,6 +103,7 @@ export const autocompleteCommands = keymap({
 
 // Function to show the autocomplete box
 function showAutocompleteBox(
+  mode: MODE,
   view: EditorView,
   matchString: string
 ): AutocompleteBox {
@@ -109,7 +113,7 @@ function showAutocompleteBox(
   const x = cursorPos.left - rect.left
   const y = cursorPos.top - rect.top
 
-  const autocomplete = new AutocompleteBox({
+  const autocomplete = new AutocompleteBox(mode, {
     container: view.dom.parentElement as HTMLElement,
     fetch: getFakeUsers,
     onSelect: item => {
@@ -139,4 +143,13 @@ function insertPeopleNode(view: EditorView, name: string): void {
   const peopleNode = schema.nodes.people.create({ name })
   const transaction = state.tr.replaceSelectionWith(peopleNode)
   dispatch(transaction.scrollIntoView())
+}
+
+function insertAndUpdateText(view: EditorView, text: string): boolean {
+  const { state } = view
+
+  const transaction = state.tr.insertText(text)
+  const newState = state.apply(transaction)
+  view.updateState(newState)
+  return true
 }

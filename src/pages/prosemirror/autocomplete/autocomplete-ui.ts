@@ -7,6 +7,10 @@ interface AutocompleteBoxOptions {
 
 let singleton: AutocompleteBox | undefined = undefined
 
+export function isBoxOpened(): boolean {
+  return singleton !== undefined
+}
+
 export function getAutocompleteBox(): AutocompleteBox | undefined {
   return singleton
 }
@@ -28,6 +32,8 @@ interface ActiveItem {
       }
 }
 
+export type MODE = 'PEOPLE' | 'HASHTAG' | 'FLOW'
+
 export class AutocompleteBox {
   private container: HTMLElement
   private readonly fetch: (matchString: string) => Promise<string[]>
@@ -39,7 +45,10 @@ export class AutocompleteBox {
   private activeIndex: number = -1 // For keyboard navigation
   private lastActiveItem: string | undefined = undefined
 
-  constructor(options: AutocompleteBoxOptions) {
+  constructor(
+    public mode: MODE,
+    options: AutocompleteBoxOptions
+  ) {
     const { container, fetch, onSelect, onClose } = options
     this.container = container
     this.fetch = fetch
