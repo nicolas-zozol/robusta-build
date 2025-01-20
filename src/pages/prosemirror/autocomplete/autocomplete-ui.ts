@@ -11,6 +11,10 @@ export function isBoxOpened(): boolean {
   return singleton !== undefined
 }
 
+export function isModeOpened(mode: MODE): boolean {
+  return singleton !== undefined && singleton.mode === mode
+}
+
 export function getAutocompleteBox(): AutocompleteBox | undefined {
   return singleton
 }

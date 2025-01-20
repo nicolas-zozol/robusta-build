@@ -5,7 +5,7 @@ import {
   Transaction,
 } from 'prosemirror-state'
 import { keymap } from 'prosemirror-keymap'
-import { getFakeUsers } from './fake-data'
+import { getFakeHashtags, getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
 import {
   AutocompleteBox,
@@ -77,32 +77,50 @@ const handleAtKey: Command = (
   // Show the autocomplete box
   showAutocompleteBox('PEOPLE', view)
 
-  /*
-  autocomplete.onClose = () => {
-    if (dispatch) {
-      // Replace the temporaryNode with plain text containing the match string
-      const matchText = schema.text(
-        view.state.doc.textBetween(
-          caretPosition,
-          caretPosition + temporaryNode.nodeSize
-        )
-      )
-      dispatch(
-        tr.replaceWith(
-          caretPosition,
-          caretPosition + temporaryNode.nodeSize,
-          matchText
-        )
-      )
-    }
+  return true // Indicate the key was handled
+}
+
+const handleHashKey: Command = (
+  state: EditorState,
+  dispatch?: (tr: Transaction) => void,
+  view?: EditorView
+) => {
+  if (!view) return false
+  const { schema, tr } = state
+
+  // Get the caret position
+  const { $from } = state.selection
+  const caretPosition = $from.pos
+
+  if (isBoxOpened() && dispatch) {
+    return insertAndUpdateText(view, '#')
   }
-*/
+
+  // Create a temporary node with an empty string as content
+  const temporaryNode = schema.nodes.temporaryHashtag.create(
+    {},
+    schema.text('#')
+  )
+  if (dispatch) {
+    tr.insert(caretPosition, temporaryNode)
+    const endPosition = caretPosition + 2
+    tr.setSelection(TextSelection.create(tr.doc, endPosition))
+
+    dispatch(tr)
+  } else {
+    //console.log('### no dispatch')
+  }
+
+  // Show the autocomplete box
+  showAutocompleteBox('HASHTAG', view)
+
   return true // Indicate the key was handled
 }
 
 export const autocompleteCommands = keymap({
   Enter: doEnter,
   '@': handleAtKey,
+  '#': handleHashKey,
 })
 
 // Function to show the autocomplete box
@@ -113,9 +131,16 @@ function showAutocompleteBox(mode: MODE, view: EditorView): AutocompleteBox {
   const x = cursorPos.left - rect.left
   const y = cursorPos.top - rect.top
 
+  const faker =
+    mode === 'PEOPLE'
+      ? getFakeUsers
+      : mode === 'HASHTAG'
+        ? getFakeHashtags
+        : getFakeUsers
+
   const autocomplete = new AutocompleteBox(mode, {
     container: view.dom.parentElement as HTMLElement,
-    fetch: getFakeUsers,
+    fetch: faker,
     onSelect: item => {
       console.log('Selected:', item)
       insertPeopleNode(view, item) // Insert the selected person node

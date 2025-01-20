@@ -20,3 +20,28 @@ export async function getFakeUsers(matchString: string) {
     user.toLowerCase().startsWith(matchString.toLowerCase())
   )
 }
+
+const fakeHashtags = [
+  'Re@ct',
+  'Vue',
+  'Ang#lar',
+  'svelte',
+  'node',
+  'Nodejs',
+  'Express',
+  'Next',
+  'Nuxt',
+  'Gatsby',
+  'Sapper',
+  'Redux',
+  'MobX',
+  'GraphQL',
+  'Apollo',
+  'REST',
+]
+
+export async function getFakeHashtags(matchString: string) {
+  return fakeHashtags.filter(tag =>
+    tag.toLowerCase().startsWith(matchString.toLowerCase())
+  )
+}

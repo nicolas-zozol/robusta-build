@@ -25,11 +25,43 @@ const autocompleteNodes: Record<string, NodeSpec> = {
       { class: 'mention', 'data-name': node.attrs.name },
       `@${node.attrs.name}`,
     ],
-    parseDOM: [
-      {
-        tag: 'span.mention[data-name]',
-        getAttrs: dom => ({ name: dom.getAttribute('data-name') }),
-      },
+  },
+  temporaryHashtag: {
+    group: 'inline',
+    inline: true,
+    atom: false,
+    content: 'text*',
+    toDOM: () => ['span', { class: 'temporary-hashtag' }, 0],
+    parseDOM: [{ tag: 'span.temporary-hashtag' }],
+  },
+  hashtag: {
+    inline: true,
+    atom: true,
+    group: 'inline',
+    attrs: { tag: { default: '' } },
+    toDOM: node => [
+      'span',
+      { class: 'hashtag', 'data-name': node.attrs.tag },
+      `#${node.attrs.tag}`,
+    ],
+  },
+  temporaryFlow: {
+    group: 'inline',
+    inline: true,
+    atom: false,
+    content: 'text*',
+    toDOM: () => ['span', { class: 'temporary-flow' }, 0],
+    parseDOM: [{ tag: 'span.temporary-flow' }],
+  },
+  flow: {
+    inline: true,
+    atom: true,
+    group: 'inline',
+    attrs: { name: { default: '' } },
+    toDOM: node => [
+      'span',
+      { class: 'flow', 'data-name': node.attrs.name },
+      `#${node.attrs.name}`,
     ],
   },
 }
