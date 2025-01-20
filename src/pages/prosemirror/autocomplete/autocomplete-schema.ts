@@ -27,7 +27,7 @@ const autocompleteNodes: Record<string, NodeSpec> = {
     ],
     parseDOM: [
       {
-        tag: 'span[data-name]',
+        tag: 'span.mention[data-name]',
         getAttrs: dom => ({ name: dom.getAttribute('data-name') }),
       },
     ],

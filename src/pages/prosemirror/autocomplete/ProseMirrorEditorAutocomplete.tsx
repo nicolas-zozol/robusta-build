@@ -56,6 +56,21 @@ const RootAutocomplete = styled.div`
     background-color: #007bff;
     color: white;
   }
+
+  span.temporary-people {
+    border-radius: 3px;
+    padding: 3px;
+    color: grey;
+    font-style: italic;
+  }
+
+  span.mention {
+    padding: 3px;
+    background-color: rgba(111, 168, 221, 0.78);
+    color: white;
+    border-radius: 5px;
+    margin: 0 4px;
+  }
 `
 
 // Will handle most CSS styling of marks and nodes

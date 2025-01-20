@@ -7,7 +7,13 @@ import {
 import { keymap } from 'prosemirror-keymap'
 import { getFakeUsers } from './fake-data'
 import { EditorView } from 'prosemirror-view'
-import { AutocompleteBox, isBoxOpened, MODE } from './autocomplete-ui'
+import {
+  AutocompleteBox,
+  getAutocompleteBox,
+  isBoxOpened,
+  MODE,
+} from './autocomplete-ui'
+import { findTempPeopleNode } from './autocomplete-helpers'
 
 /**
  * This file handle the special keys and commands for the autocomplete feature.
@@ -22,7 +28,17 @@ import { AutocompleteBox, isBoxOpened, MODE } from './autocomplete-ui'
  */
 
 const doEnter: Command = (state: EditorState, dispatch) => {
-  console.log('enter pressed')
+  if (isBoxOpened()) {
+    const box = getAutocompleteBox()!
+    const activeItem = box.getActiveItem()
+    if (!activeItem) {
+      return false
+    } else {
+      box.onSelect(activeItem)
+      return true
+    }
+  }
+
   return true
 }
 
@@ -53,27 +69,15 @@ const handleAtKey: Command = (
     const endPosition = caretPosition + 2
     tr.setSelection(TextSelection.create(tr.doc, endPosition))
 
-    console.log('### inserting', {
-      caretPosition,
-      temporaryNodeSize: temporaryNode.nodeSize,
-      endPosition,
-    })
-
     dispatch(tr)
   } else {
     //console.log('### no dispatch')
   }
 
   // Show the autocomplete box
-  const matchString = ''
-  const autocomplete = showAutocompleteBox('PEOPLE', view, matchString)
+  showAutocompleteBox('PEOPLE', view)
 
-  // Handle selection of a person
-  autocomplete.onSelect = item => {
-    insertPeopleNode(view, item) // Replace temporaryNode with the selected person node
-  }
-
-  // Handle cancellation
+  /*
   autocomplete.onClose = () => {
     if (dispatch) {
       // Replace the temporaryNode with plain text containing the match string
@@ -92,7 +96,7 @@ const handleAtKey: Command = (
       )
     }
   }
-
+*/
   return true // Indicate the key was handled
 }
 
@@ -102,11 +106,7 @@ export const autocompleteCommands = keymap({
 })
 
 // Function to show the autocomplete box
-function showAutocompleteBox(
-  mode: MODE,
-  view: EditorView,
-  matchString: string
-): AutocompleteBox {
+function showAutocompleteBox(mode: MODE, view: EditorView): AutocompleteBox {
   const rect = view.dom.getBoundingClientRect()
   const cursorPos = view.coordsAtPos(view.state.selection.$from.pos)
 
@@ -119,6 +119,7 @@ function showAutocompleteBox(
     onSelect: item => {
       console.log('Selected:', item)
       insertPeopleNode(view, item) // Insert the selected person node
+      autocomplete.exit()
     },
     onClose: () => {
       console.log('Autocomplete box closed')
@@ -127,7 +128,7 @@ function showAutocompleteBox(
 
   autocomplete.setPosition(x + 30, y + 40) // Adjust position
   autocomplete
-    .update(matchString) // Initialize with the current match string
+    .update('') // Initialize with the current match string
     .catch(error => {
       console.error('Error fetching autocomplete items:', error)
     })
@@ -138,11 +139,17 @@ function showAutocompleteBox(
 // Function to handle inserting a PeopleNode
 function insertPeopleNode(view: EditorView, name: string): void {
   const { state, dispatch } = view
-  const { schema } = state
+  const { schema, tr } = state
 
-  const peopleNode = schema.nodes.people.create({ name })
-  const transaction = state.tr.replaceSelectionWith(peopleNode)
-  dispatch(transaction.scrollIntoView())
+  const tempNode = findTempPeopleNode(state)
+  if (tempNode) {
+    const { node, pos } = tempNode
+    const peopleNode = schema.nodes.people.create({ name })
+
+    const transaction = tr.replaceWith(pos, pos + node.nodeSize, peopleNode)
+    tr.insertText(' ')
+    dispatch(transaction)
+  }
 }
 
 function insertAndUpdateText(view: EditorView, text: string): boolean {

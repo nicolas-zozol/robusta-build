@@ -101,12 +101,18 @@ export class AutocompleteBox {
       suggestionItem.setAttribute('data-index', index.toString())
       suggestionItem.className = 'suggestion-item'
       suggestionItem.textContent = item
-      suggestionItem.addEventListener('click', () => this.onSelect(item))
       this.box.appendChild(suggestionItem)
       this.htmlItems.push(suggestionItem)
     })
 
-    // setting htmlItem active on hovering
+    // click event:  selecting item on click
+    this.htmlItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        this.selectItem(index)
+      })
+    })
+
+    // mouseover event:  setting htmlItem active on hovering
     this.htmlItems.forEach((item, index) => {
       item.addEventListener('mouseover', () => {
         const itemIndex = Number(item.getAttribute('data-index') || '0')
@@ -154,6 +160,10 @@ export class AutocompleteBox {
     }
   }
 
+  getActiveItem(): string | undefined {
+    return this.lastActiveItem
+  }
+
   /**
    * Closes the autocomplete box and triggers the onClose callback if provided.
    */
@@ -179,7 +189,7 @@ export class AutocompleteBox {
 
     const selectedItem = this.items[index]
     this.onSelect(selectedItem)
-    this.close()
+    //this.close()
   }
 
   // Handles keyboard navigation
