@@ -1,3 +1,5 @@
+import { MODE } from './mode'
+
 interface AutocompleteBoxOptions {
   container: HTMLElement // The parent `position: relative` container
   fetch: (matchString: string) => Promise<string[]> // Fetch logic for autocomplete items
@@ -35,8 +37,6 @@ interface ActiveItem {
         item: string
       }
 }
-
-export type MODE = 'PEOPLE' | 'HASHTAG' | 'FLOW'
 
 export class AutocompleteBox {
   private container: HTMLElement

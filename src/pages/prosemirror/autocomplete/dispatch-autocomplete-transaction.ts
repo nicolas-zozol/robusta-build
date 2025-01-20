@@ -3,9 +3,9 @@ import { EditorState, Transaction } from 'prosemirror-state'
 import { Node } from 'prosemirror-model'
 import { getAutocompleteBox } from './autocomplete-ui'
 import {
-  detectWritingIntoTempPeople,
+  detectWritingIntoTemporary,
   extractMatchString,
-  findTempPeopleNode,
+  findTemporary,
 } from './autocomplete-helpers'
 
 /**
@@ -23,12 +23,12 @@ export function dispatchAutocompleteTransaction(
   let newState = view.state.apply(transaction)
   view.updateState(newState)
 
-  const writingIntoTempPeople = detectWritingIntoTempPeople(initialState)
+  const writingIntoTemporary = detectWritingIntoTemporary(initialState)
 
   const box = getAutocompleteBox()
-  const tempNode = findTempPeopleNode(newState)
+  const tempNode = findTemporary(newState)
 
-  if (writingIntoTempPeople && box && tempNode) {
+  if (writingIntoTemporary && box && tempNode) {
     const matchString = extractMatchString(newState)
 
     box

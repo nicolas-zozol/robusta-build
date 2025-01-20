@@ -57,19 +57,25 @@ const RootAutocomplete = styled.div`
     color: white;
   }
 
-  span.temporary-people {
+  span.temporary {
     border-radius: 3px;
     padding: 3px;
     color: grey;
     font-style: italic;
   }
 
-  span.mention {
+  span.mention,
+  span.hashtag {
     padding: 3px;
-    background-color: rgba(111, 168, 221, 0.78);
     color: white;
     border-radius: 5px;
-    margin: 0 4px;
+    margin: 0 2px;
+  }
+  span.mention {
+    background-color: rgba(111, 168, 221, 0.78);
+  }
+  span.hashtag {
+    background-color: rgba(166, 221, 111, 0.78);
   }
 `
 

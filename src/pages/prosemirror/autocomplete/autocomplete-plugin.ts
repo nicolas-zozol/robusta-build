@@ -11,9 +11,9 @@ import {
   AutocompleteBox,
   getAutocompleteBox,
   isBoxOpened,
-  MODE,
 } from './autocomplete-ui'
-import { findTempPeopleNode } from './autocomplete-helpers'
+import { findTemporary } from './autocomplete-helpers'
+import { getFakerByMode, getSchemaTypeByMode, MODE } from './mode'
 
 /**
  * This file handle the special keys and commands for the autocomplete feature.
@@ -60,10 +60,7 @@ const handleAtKey: Command = (
   }
 
   // Create a temporary node with an empty string as content
-  const temporaryNode = schema.nodes.temporaryPeople.create(
-    {},
-    schema.text('@')
-  )
+  const temporaryNode = schema.nodes.temporary.create({}, schema.text('@'))
   if (dispatch) {
     tr.insert(caretPosition, temporaryNode)
     const endPosition = caretPosition + 2
@@ -97,10 +94,7 @@ const handleHashKey: Command = (
   }
 
   // Create a temporary node with an empty string as content
-  const temporaryNode = schema.nodes.temporaryHashtag.create(
-    {},
-    schema.text('#')
-  )
+  const temporaryNode = schema.nodes.temporary.create({}, schema.text('#'))
   if (dispatch) {
     tr.insert(caretPosition, temporaryNode)
     const endPosition = caretPosition + 2
@@ -131,19 +125,14 @@ function showAutocompleteBox(mode: MODE, view: EditorView): AutocompleteBox {
   const x = cursorPos.left - rect.left
   const y = cursorPos.top - rect.top
 
-  const faker =
-    mode === 'PEOPLE'
-      ? getFakeUsers
-      : mode === 'HASHTAG'
-        ? getFakeHashtags
-        : getFakeUsers
+  const faker = getFakerByMode(mode)
 
   const autocomplete = new AutocompleteBox(mode, {
     container: view.dom.parentElement as HTMLElement,
     fetch: faker,
     onSelect: item => {
       console.log('Selected:', item)
-      insertPeopleNode(view, item) // Insert the selected person node
+      insertModeNode(view, item, mode) // Insert the selected person node
       autocomplete.exit()
     },
     onClose: () => {
@@ -162,16 +151,18 @@ function showAutocompleteBox(mode: MODE, view: EditorView): AutocompleteBox {
 }
 
 // Function to handle inserting a PeopleNode
-function insertPeopleNode(view: EditorView, name: string): void {
+function insertModeNode(view: EditorView, name: string, mode: MODE): void {
+  console.log('>>>> Inserting', { name, mode })
   const { state, dispatch } = view
   const { schema, tr } = state
 
-  const tempNode = findTempPeopleNode(state)
+  const tempNode = findTemporary(state)
   if (tempNode) {
     const { node, pos } = tempNode
-    const peopleNode = schema.nodes.people.create({ name })
 
-    const transaction = tr.replaceWith(pos, pos + node.nodeSize, peopleNode)
+    const modeNode = getSchemaTypeByMode(schema, mode).create({ name })
+
+    const transaction = tr.replaceWith(pos, pos + node.nodeSize, modeNode)
     tr.insertText(' ')
     dispatch(transaction)
   }

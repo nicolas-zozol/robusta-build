@@ -7,13 +7,13 @@ const autocompleteNodes: Record<string, NodeSpec> = {
   text: {
     group: 'inline',
   },
-  temporaryPeople: {
+  temporary: {
     group: 'inline',
     inline: true,
     atom: false, // Allow editing
     content: 'text*',
-    toDOM: () => ['span', { class: 'temporary-people' }, 0],
-    parseDOM: [{ tag: 'span.temporary-people' }],
+    toDOM: () => ['span', { class: 'temporary' }, 0],
+    parseDOM: [{ tag: 'span.temporary' }],
   },
   people: {
     inline: true,
@@ -26,33 +26,19 @@ const autocompleteNodes: Record<string, NodeSpec> = {
       `@${node.attrs.name}`,
     ],
   },
-  temporaryHashtag: {
-    group: 'inline',
-    inline: true,
-    atom: false,
-    content: 'text*',
-    toDOM: () => ['span', { class: 'temporary-hashtag' }, 0],
-    parseDOM: [{ tag: 'span.temporary-hashtag' }],
-  },
+
   hashtag: {
     inline: true,
     atom: true,
     group: 'inline',
-    attrs: { tag: { default: '' } },
+    attrs: { name: { default: '' } },
     toDOM: node => [
       'span',
-      { class: 'hashtag', 'data-name': node.attrs.tag },
-      `#${node.attrs.tag}`,
+      { class: 'hashtag', 'data-name': node.attrs.name },
+      `#${node.attrs.name}`,
     ],
   },
-  temporaryFlow: {
-    group: 'inline',
-    inline: true,
-    atom: false,
-    content: 'text*',
-    toDOM: () => ['span', { class: 'temporary-flow' }, 0],
-    parseDOM: [{ tag: 'span.temporary-flow' }],
-  },
+
   flow: {
     inline: true,
     atom: true,
